@@ -26,7 +26,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-[#FDFDFD] text-slate-950 font-sans selection:bg-blue-600 selection:text-white overflow-x-hidden min-h-screen">
+    <div className="bg-grid bg-[#FDFDFD] text-slate-950 font-sans selection:bg-blue-600 selection:text-white overflow-x-hidden min-h-screen">
       <div
         className="fixed inset-0 pointer-events-none opacity-[0.03] z-0"
         style={{

@@ -24,3 +24,53 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.bg-grid {
+  background-size: 40px 40px;
+  background-image: radial-gradient(circle, #e5e7eb 1px, rgba(0, 0, 0, 0) 1px);
+}
+
+.floating {
+  animation: floating 4s ease-in-out infinite;
+}
+
+.floating-delayed {
+  animation: floating 5s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.floating-fast {
+  animation: floating 3s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+@keyframes floating {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(2deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.service-tag {
+  transition: all 0.3s ease;
+}
+
+.service-tag:hover {
+  transform: scale(1.1) rotate(-2deg);
+  background: #1e293b;
+  color: white;
+}
