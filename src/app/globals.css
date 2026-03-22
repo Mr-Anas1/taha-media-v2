@@ -44,6 +44,44 @@ body {
   animation-delay: 0.5s;
 }
 
+.floating-ui {
+  animation: floating 4s ease-in-out infinite;
+}
+
+.floating-delayed-ui {
+  animation: floating 5s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.floating-fast-ui {
+  animation: floating 3s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.blink-text {
+  animation: blink 1.5s infinite;
+}
+
+.delay {
+  animation-delay: 0.5s;
+}
+
+
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 @keyframes floating {
   0% {
     transform: translateY(0px) rotate(0deg);

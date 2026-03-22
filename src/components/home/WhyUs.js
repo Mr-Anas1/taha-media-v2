@@ -3,7 +3,10 @@ import DogEarCard from "./DogEarCard";
 import StatCard from "./StatCard";
 
 const WhyUs = () => (
-  <section className="py-32 px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+  <section
+    id="why-us"
+    className="py-32 px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center"
+  >
     <div className="relative">
       <DogEarCard color="bg-blue-600" className="rotate-[-3deg] w-fit">
         <h2 className="text-6xl font-black text-white italic">why us?</h2>
