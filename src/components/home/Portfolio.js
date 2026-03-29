@@ -3,7 +3,7 @@ import DogEarCard from "./DogEarCard";
 import WorkSticker from "./WorkSticker";
 
 const Portfolio = () => (
-  <section className="py-32 px-6 bg-white relative">
+  <section className="py-4 lg:py-32 px-6 bg-white relative">
     <div className="max-w-7xl mx-auto">
       <div className="flex justify-center mb-20">
         <DogEarCard color="bg-blue-600" className="w-fit -rotate-2">

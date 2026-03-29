@@ -25,6 +25,9 @@ export default function RootLayout({ children }) {
       lerp: 0.08,
     });
 
+    // Make lenis available globally
+    window.lenis = lenis;
+
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -34,6 +37,7 @@ export default function RootLayout({ children }) {
 
     return () => {
       lenis.destroy();
+      delete window.lenis;
     };
   }, []);
 

@@ -6,16 +6,26 @@ import { X } from "lucide-react";
 import FinalCTA from "../components/home/FinalCTA";
 import Footer from "../components/home/Footer";
 import Hero from "../components/home/Hero";
+import AboutUs from "../components/home/AboutUs";
+import InfiniteServices from "../components/home/InfiniteServices";
 import Navbar from "../components/home/Navbar";
 import Portfolio from "../components/home/Portfolio";
-import Services from "../components/home/Services";
+import AnimatedServices from "../components/home/AnimatedServices";
 import Squiggles from "../components/home/Squiggles";
 import WhyUs from "../components/home/WhyUs";
+import useNavbarVisibility from "../hooks/useNavbarVisibility";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+
+
+  const isVisible = useNavbarVisibility();
+
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -24,6 +34,24 @@ export default function Home() {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Show navbar when scrolling up, hide when scrolling down
+      if (currentScrollY < lastScrollY) {
+        setShowNavbar(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setShowNavbar(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
     <div className="bg-grid bg-[#FDFDFD] text-slate-950 font-sans selection:bg-blue-600 selection:text-white overflow-x-hidden min-h-screen">
@@ -45,13 +73,20 @@ export default function Home() {
         }}
       />
 
-      <Navbar setIsMenuOpen={setIsMenuOpen} setIsHovering={setIsHovering} />
+       <Navbar
+        setIsMenuOpen={setIsMenuOpen}
+        setIsHovering={setIsHovering}
+        showNavbar={true}
+        isVisible={isVisible}
+      />
 
       <main className="relative z-10">
         <Hero setIsHovering={setIsHovering} />
+        <AboutUs setIsHovering={setIsHovering} />
         <WhyUs setIsHovering={setIsHovering} />
-        <Services setIsHovering={setIsHovering} />
+        <AnimatedServices setIsHovering={setIsHovering} />
         <Portfolio setIsHovering={setIsHovering} />
+        <InfiniteServices />
         <FinalCTA setIsHovering={setIsHovering} />
       </main>
 
