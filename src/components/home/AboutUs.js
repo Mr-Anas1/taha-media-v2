@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useRef } from "react";
-import { Users, Target, Award } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { Users, Target, Award, ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
@@ -9,165 +9,228 @@ gsap.registerPlugin(ScrollTrigger);
 
 const AboutUs = ({ setIsHovering }) => {
   const sectionRef = useRef(null);
-  const textRef = useRef(null);
-  const statsRef = useRef(null);
-  const cardRefs = useRef([]);
+  const leftColRef = useRef(null);
+  const bgTextRef = useRef(null);
+  const cardsContainerRef = useRef(null);
 
   useEffect(() => {
+    let mm = gsap.matchMedia();
+
+    // 1. UNIVERSAL ANIMATIONS (All Screens)
     const ctx = gsap.context(() => {
-      // Text animation
-      if (textRef.current) {
-        const split = new SplitType(textRef.current, {
-          types: "words, lines, chars",
-          tagName: "span",
-        });
+      // Set initial background text position
+      gsap.set(bgTextRef.current, {
+        position: "absolute",
+        top: "10%",
+        left: "0%",
+        opacity: 0.1,
+        zIndex: 0
+      });
 
-        gsap.from(split.lines, {
-          y: 40,
-          opacity: 0.3,
-          duration: 0.6,
-          ease: "power1.out",
-          stagger: 0.1,
+      // Background text horizontal parallax - works on all screens
+      gsap.to(bgTextRef.current, {
+        xPercent: -30,
+        opacity: 0.3,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+
+      // Liquid Title Animation
+      const titleSplit = new SplitType(".about-title", { types: "chars" });
+      gsap.from(titleSplit.chars, {
+        opacity: 0,
+        y: 30,
+        rotateX: -90,
+        stagger: 0.02,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".about-title",
+          start: "top 85%",
+        },
+      });
+
+      // Count-up Animation for Stats
+      const stats = gsap.utils.toArray(".stat-number");
+      stats.forEach((stat) => {
+        const endValue = parseInt(stat.getAttribute("data-value"));
+        gsap.to(stat, {
+          innerText: endValue,
+          duration: 2.5,
+          snap: { innerText: 1 }, // Forces integers
+          ease: "expo.out",
           scrollTrigger: {
-            trigger: textRef.current,
-            start: "top 80%",
+            trigger: stat,
+            start: "top 95%",
           },
         });
-      }
-
-      // Stats animation
-      if (statsRef.current) {
-        gsap.from(statsRef.current.children, {
-          y: 30,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: statsRef.current,
-            start: "top 85%",
-          },
-        });
-      }
-
-      // Cards animation
-      cardRefs.current.forEach((card, index) => {
-        if (card) {
-          gsap.from(card, {
-            y: 50,
-            opacity: 0,
-            scale: 0.95,
-            duration: 0.8,
-            delay: index * 0.15,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 85%",
-            },
-          });
-        }
       });
     }, sectionRef);
 
-    return () => ctx.revert();
+    // 2. DESKTOP SPECIFIC (min-width: 1024px)
+    mm.add("(min-width: 1024px)", () => {
+      // Enhanced background text for desktop
+      gsap.set(bgTextRef.current, { opacity: 0.15 });
+      
+      gsap.to(bgTextRef.current, {
+        xPercent: -50,
+        opacity: 0.25,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+
+      // Sticky Left Column
+      gsap.to(leftColRef.current, {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom bottom",
+          pin: leftColRef.current,
+          pinSpacing: false,
+        },
+      });
+    });
+
+    // 3. MOBILE SPECIFIC (max-width: 1023px)
+    mm.add("(max-width: 1023px)", () => {
+      // Header Content Slide Up
+      gsap.from(".about-header-content", {
+        y: 30,
+        opacity: 0,
+        duration: 1,
+        scrollTrigger: {
+          trigger: ".about-header-content",
+          start: "top 90%",
+        }
+      });
+
+      // Staggered Card Reveal
+      const mobileCards = gsap.utils.toArray(".mobile-card");
+      mobileCards.forEach((card, i) => {
+        gsap.from(card, {
+          y: 60,
+          opacity: 0,
+          scale: 0.9,
+          rotate: i % 2 === 0 ? -2 : 2, // Alternating subtle tilt
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 90%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      });
+
+      // Subtle BG Text Movement for mobile
+      gsap.to(bgTextRef.current, {
+        xPercent: -15,
+        opacity: 0.2,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 0.5,
+        }
+      });
+    });
+
+    return () => {
+      mm.revert();
+      ctx.revert();
+    };
   }, []);
 
   const stats = [
-    { number: "40+", label: "Brands Elevated", icon: Users },
-    { number: "8+", label: "Years Experience", icon: Award },
-    { number: "100%", label: "Client Satisfaction", icon: Target },
+    { number: "40", label: "Brands Elevated", suffix: "+" },
+    { number: "8", label: "Years Experience", suffix: "+" },
+    { number: "100", label: "Satisfaction", suffix: "%" },
   ];
 
   const values = [
-    {
-      title: "Innovation First",
-      description: "We push boundaries and challenge conventions to create unique digital experiences that stand out.",
-      color: "bg-blue-600",
-    },
-    {
-      title: "Quality Driven",
-      description: "Every project is crafted with meticulous attention to detail and unwavering commitment to excellence.",
-      color: "bg-slate-900",
-    },
-    {
-      title: "Client Success",
-      description: "Your growth is our success. We build partnerships that last beyond project delivery.",
-      color: "bg-blue-600",
-    },
+    { title: "Innovation First", desc: "We push boundaries and challenge conventions to create unique digital experiences.", icon: "01" },
+    { title: "Quality Driven", desc: "Meticulous attention to detail and unwavering commitment to excellence.", icon: "02" },
+    { title: "Client Success", desc: "We build partnerships that last beyond project delivery.", icon: "03" },
+    { title: "Future Ready", desc: "We anticipate trends and build solutions that evolve with technology.", icon: "04" },
   ];
 
   return (
-    <section ref={sectionRef} className="relative py-32 px-6 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-blue-50 rounded-full blur-[80px] opacity-40 floating" />
-        <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-slate-100 rounded-full blur-[60px] opacity-30 floating-delayed" />
+    <section ref={sectionRef} className="relative py-20 lg:py-40 px-6 bg-white overflow-hidden">
+      
+      {/* Background Parallax Text */}
+      <div 
+        ref={bgTextRef}
+        className="absolute top-10 lg:top-20 left-0 text-[25vw] lg:text-[18vw] font-black text-slate-100 select-none whitespace-nowrap -z-10 pointer-events-none uppercase"
+      >
+        Taha Media Digital
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center space-x-2 mb-6">
-            <div className="w-8 h-0.5 bg-blue-600" />
-            <span className="text-blue-600 font-bold text-sm uppercase tracking-wider">
-              About Taha Media
-            </span>
-            <div className="w-8 h-0.5 bg-blue-600" />
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-20 relative z-10">
+        
+        {/* Left Column (Sticky on Desktop) */}
+        <div ref={leftColRef} className="lg:w-1/2 lg:h-fit about-header-content">
+          <div className="inline-block px-4 py-1.5 mb-6 rounded-full border border-blue-100 bg-blue-50 text-blue-600 font-bold text-[10px] lg:text-xs uppercase tracking-widest">
+            Who we are
           </div>
-          
-          <h2 ref={textRef} className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-6">
-            We're a team of <span className="text-blue-600">creative thinkers</span> and <br />
-            <span className="text-slate-900">digital innovators</span>
+          <h2 className="about-title text-5xl md:text-7xl font-black text-slate-900 leading-[0.9] mb-8">
+            CRAFTING <br />
+            <span className="text-blue-600">DIGITAL</span> <br />
+            LEGACIES.
           </h2>
-          
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Founded with a passion for digital excellence, Taha Media has been transforming ideas into powerful digital experiences. We combine creativity with technology to help brands connect with their audience in meaningful ways.
+          <p className="text-lg lg:text-xl text-slate-600 mb-10 leading-relaxed max-w-md">
+            Taha Media is a creative powerhouse where technology meets art to build brands that matter.
           </p>
-        </div>
-
-        {/* Stats */}
-        <div ref={statsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-          {stats.map((stat, index) => {
-            const Icon = stat.icon;
-            return (
-              <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-50 rounded-full mb-4">
-                  <Icon className="text-blue-600" size={24} />
+          
+          {/* Animated Stats */}
+          <div className="grid grid-cols-3 gap-4 border-t border-slate-100 pt-10">
+            {stats.map((stat, i) => (
+              <div key={i}>
+                <div className="text-2xl lg:text-3xl font-black text-slate-900 flex items-baseline">
+                  <span className="stat-number" data-value={stat.number}>0</span>
+                  <span className="text-blue-600">{stat.suffix}</span>
                 </div>
-                <div className="text-4xl md:text-5xl font-black text-slate-900 mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-sm font-bold uppercase tracking-wider text-slate-400">
+                <div className="text-[9px] lg:text-[10px] uppercase font-bold tracking-wider text-slate-400 mt-1">
                   {stat.label}
                 </div>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
 
-        {/* Values Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {values.map((value, index) => (
-            <div
-              key={index}
-              ref={(el) => (cardRefs.current[index] = el)}
-              className="glass-card p-8 rounded-2xl relative group cursor-pointer"
-              onMouseEnter={() => setIsHovering(true)}
+        {/* Right Column (Scrolling Cards) */}
+        <div ref={cardsContainerRef} className="lg:w-1/2 space-y-4 lg:space-y-6">
+          {values.map((value, i) => (
+            <div 
+              key={i}
+              className="mobile-card group p-8 lg:p-16 bg-slate-50 rounded-[2rem] lg:rounded-[2.5rem] 
+                         hover:bg-blue-600 active:scale-[0.98] transition-all duration-500 
+                         cursor-pointer lg:cursor-none border border-transparent hover:border-blue-400"
+              onMouseEnter={() => window.innerWidth >= 1024 && setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
             >
-              <div className={`absolute top-0 left-0 w-full h-1 ${value.color} rounded-t-2xl`} />
-              
-              <div className="mb-6">
-                <div className={`inline-flex items-center justify-center w-12 h-12 ${value.color} rounded-lg mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <div className="w-6 h-6 bg-white rounded-sm" />
+              <div className="flex justify-between items-start mb-10 lg:mb-12">
+                <span className="text-xs lg:text-sm font-black text-blue-600 group-hover:text-blue-200 transition-colors uppercase">
+                  {value.icon}
+                </span>
+                <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border border-slate-200 group-hover:border-blue-400 flex items-center justify-center transition-colors">
+                  <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5 text-slate-400 group-hover:text-white group-hover:-rotate-45 transition-all duration-300" />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">
-                  {value.title}
-                </h3>
-                <p className="text-slate-600 leading-relaxed">
-                  {value.description}
-                </p>
               </div>
+              <h3 className="text-2xl lg:text-3xl font-black text-slate-900 group-hover:text-white mb-4 transition-colors uppercase tracking-tighter">
+                {value.title}
+              </h3>
+              <p className="text-sm lg:text-lg text-slate-600 group-hover:text-blue-100 transition-colors leading-snug lg:leading-relaxed">
+                {value.desc}
+              </p>
             </div>
           ))}
         </div>

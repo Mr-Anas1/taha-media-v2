@@ -58,7 +58,7 @@ const AnimatedServices = ({ setIsHovering }) => {
       });
     });
 
-mm.add("(max-width: 1023px)", () => {
+    mm.add("(max-width: 1023px)", () => {
       // --- MOBILE: VERTICAL STACKING ON SCROLL ---
       const cards = cardsRef.current;
       
@@ -89,13 +89,13 @@ mm.add("(max-width: 1023px)", () => {
     return () => mm.revert();
   }, []);
 
-  // Handle scroll to close active card on mobile
+  // Handle scroll to close active card on all screens
   useEffect(() => {
     if (activeIndex === null) return;
 
     const handleScroll = () => {
-      if (activeIndex !== null && window.innerWidth < 1024) {
-        // Close the active card with smooth animation on mobile
+      if (activeIndex !== null) {
+        // Close the active card with smooth animation on any screen size
         handleCardClick(activeIndex);
       }
     };
@@ -162,7 +162,7 @@ mm.add("(max-width: 1023px)", () => {
         
         {/* Header */}
         <div className={`mb-5 lg:mb-20 text-center z-50 transition-opacity duration-500 ${activeIndex !== null ? 'opacity-20' : 'opacity-100'}`}>
-          <span className="bg-[#A7F3D0] text-black px-3 py-1 rounded text-xs font-bold uppercase tracking-widest">
+          <span className="bg-blue-600  text-white px-3 py-1 rounded text-xs font-bold uppercase tracking-widest">
             What We Offer
           </span>
           <h2 className="text-5xl md:text-7xl lg:text-9xl font-black text-[#1A1A1A] mt-2 tracking-tighter leading-none">
@@ -204,7 +204,7 @@ mm.add("(max-width: 1023px)", () => {
               
               <p className={`
                 text-sm lg:text-base font-semibold text-black leading-snug
-                ${window.innerWidth >= 1024 ? (activeIndex === index ? "opacity-100" : "opacity-60") : "opacity-100"}
+              
               `}>
                 {service.description}
               </p>
