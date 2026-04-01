@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 
-
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero = ({ setIsHovering }) => {
@@ -13,113 +12,107 @@ const Hero = ({ setIsHovering }) => {
   const imageRef = useRef(null);
   const hoverAnimRef = useRef({});
   const scrollOutRef = useRef(null);
+  
+  // Text Animation Refs
   const textRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const buttonRef = useRef(null);
   const word1AnimRef = useRef(null);
   const word2AnimRef = useRef(null);
 
   useEffect(() => {
-    if (!imageRef.current) return;
-    if (!word1AnimRef.current) return;
-    if (!word2AnimRef.current) return;
-
-    gsap.to(word1AnimRef.current, {
-      y: -20,
-      duration: 1,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-    })
-
-    gsap.to(word2AnimRef.current, {
-      y: 20,
-      duration: 1,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      delay: 0.3,
-    })
+    if (!imageRef.current || !word1AnimRef.current || !word2AnimRef.current) return;
 
     const mm = gsap.matchMedia();
-
     const ctx = gsap.context(() => {
-      if (scrollOutRef.current) {
-        gsap.set(scrollOutRef.current, {
-          clearProps: "x,opacity,visibility",
-          x: 0,
-          opacity: 1,
-          visibility: "visible",
+      
+      // 1. PREMIUM TEXT REVEAL (Masked Character Stagger)
+      if (textRef.current) {
+        const split = new SplitType(textRef.current, {
+          types: "lines, words, chars",
+          tagName: "span",
+        });
+
+        // Set overflow hidden on the lines to create the "mask" effect
+        gsap.set(split.lines, { overflow: "hidden" });
+
+        gsap.from(split.chars, {
+          yPercent: 100, // Slide up from bottom of the line
+          rotationZ: 8,  // Slight tilt for an organic feel
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.03, // Delay between each letter
+          ease: "power4.out",
+          delay: 0.1,
         });
       }
-      gsap.set(imageRef.current, {
-        clearProps: "x,opacity,visibility",
-        opacity: 1,
-        visibility: "visible",
+
+      // 2. SUBTITLE & BUTTON REVEAL
+      gsap.from([subtitleRef.current, buttonRef.current], {
+        y: 20,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        delay: 0.8, // Wait for the main text to finish
       });
 
-      // 🔥 ENTRY ANIMATION (clean + combined)
+      // 3. BOUNCING TAGS ANIMATION
+      gsap.to(word1AnimRef.current, {
+        y: -15,
+        duration: 1.2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+
+      gsap.to(word2AnimRef.current, {
+        y: 15,
+        duration: 1.2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 0.3,
+      });
+
+      // 4. IMAGE ENTRY ANIMATION
+      if (scrollOutRef.current) {
+        gsap.set(scrollOutRef.current, { clearProps: "all", x: 0, opacity: 1, visibility: "visible" });
+      }
+      gsap.set(imageRef.current, { clearProps: "all", opacity: 1, visibility: "visible" });
+
       gsap.fromTo(
         imageRef.current,
-        {
-          x: 200,
-          opacity: 0,
-          y: 40,
-          scale: 0.96,
-          rotate: -2,
-        },
-        {
-          x: 0,
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          rotate: 0,
-          duration: 2,
-          ease: "power3.out",
-        }
+        { x: 200, opacity: 0, y: 40, scale: 0.96, rotate: -2 },
+        { x: 0, opacity: 1, y: 0, scale: 1, rotate: 0, duration: 2, ease: "power3.out", delay: 0.2 }
       );
 
-      // 🔥 FLOATING (only AFTER entry)
+      // FLOATING IMAGE
       gsap.to(imageRef.current, {
         y: -12,
         duration: 2.6,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
-        delay: 2,
+        delay: 2.2,
       });
 
-      // 🔥 HOVER EFFECT (your existing)
-      gsap.set(imageRef.current, {
-        transformPerspective: 800,
-        transformOrigin: "center",
-      });
-
+      // 5. 3D HOVER EFFECT PREP
+      gsap.set(imageRef.current, { transformPerspective: 800, transformOrigin: "center" });
       hoverAnimRef.current = {
-        xTo: gsap.quickTo(imageRef.current, "x", {
-          duration: 0.35,
-          ease: "power3.out",
-        }),
-        yTo: gsap.quickTo(imageRef.current, "y", {
-          duration: 0.35,
-          ease: "power3.out",
-        }),
-        rXTo: gsap.quickTo(imageRef.current, "rotationX", {
-          duration: 0.35,
-          ease: "power3.out",
-        }),
-        rYTo: gsap.quickTo(imageRef.current, "rotationY", {
-          duration: 0.35,
-          ease: "power3.out",
-        }),
+        xTo: gsap.quickTo(imageRef.current, "x", { duration: 0.35, ease: "power3.out" }),
+        yTo: gsap.quickTo(imageRef.current, "y", { duration: 0.35, ease: "power3.out" }),
+        rXTo: gsap.quickTo(imageRef.current, "rotationX", { duration: 0.35, ease: "power3.out" }),
+        rYTo: gsap.quickTo(imageRef.current, "rotationY", { duration: 0.35, ease: "power3.out" }),
       };
 
+      // 6. SCROLL OUT PARALLAX
       if (heroSectionRef.current && scrollOutRef.current) {
         const createScrollOut = (offsetPx) => {
           gsap.to(scrollOutRef.current, {
             x: 220,
             opacity: 0,
             ease: "none",
-            overwrite: "auto",
-            immediateRender: false,
             scrollTrigger: {
               trigger: heroSectionRef.current,
               start: `bottom bottom+=${offsetPx}`,
@@ -130,34 +123,10 @@ const Hero = ({ setIsHovering }) => {
           });
         };
 
-        mm.add("(max-width: 767px)", () => {
-          createScrollOut(220);
-        });
-
-        mm.add("(min-width: 768px)", () => {
-          createScrollOut(0);
-        });
+        mm.add("(max-width: 767px)", () => createScrollOut(220));
+        mm.add("(min-width: 768px)", () => createScrollOut(0));
       }
-    }, scrollOutRef);
-
-    if (!textRef.current) return;
-
-    const split = new SplitType(textRef.current, {
-      types: "words, lines, chars",
-      tagName: "span",
-    });
-
-    gsap.from(split.lines, {
-      y: 40, 
-      opacity:0.3,
-      duration:0.6,
-      ease: "power1.out",
-      stagger: 0.1,
-      scrollTrigger: {
-        trigger: textRef.current,
-        start: "top 80%",
-      },
-    });
+    }, heroSectionRef);
 
     return () => {
       mm.revert();
@@ -173,24 +142,17 @@ const Hero = ({ setIsHovering }) => {
     const rect = scrollOutRef.current.getBoundingClientRect();
     const relX = (e.clientX - rect.left) / rect.width;
     const relY = (e.clientY - rect.top) / rect.height;
-    const x = (relX - 0.5) * 26;
-    const y = (relY - 0.5) * 18;
-    const rotY = (relX - 0.5) * 10;
-    const rotX = -(relY - 0.5) * 8;
-
-    xTo(x);
-    yTo(y);
-    rYTo(rotY);
-    rXTo(rotX);
+    
+    xTo((relX - 0.5) * 26);
+    yTo((relY - 0.5) * 18);
+    rYTo((relX - 0.5) * 10);
+    rXTo(-(relY - 0.5) * 8);
   };
 
   const handleImageMouseLeave = () => {
     const { xTo, yTo, rXTo, rYTo } = hoverAnimRef.current;
     if (!xTo || !yTo || !rXTo || !rYTo) return;
-    xTo(0);
-    yTo(0);
-    rXTo(0);
-    rYTo(0);
+    xTo(0); yTo(0); rXTo(0); rYTo(0);
   };
 
   return (
@@ -201,24 +163,32 @@ const Hero = ({ setIsHovering }) => {
             <Zap className="text-blue-600 fill-blue-600" size={40} />
           </div>
 
-          <h1 ref={textRef} className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.25rem] font-black leading-[0.9] tracking-tighter text-blue-950 leading-[0.9]">
-            <div className="blink-text">/</div>build <br />
-            brands that win <div className="blink-text delay">—</div> <br />
-            <span ref={word1AnimRef} className="relative inline-block px-4 py-2 bg-blue-600 text-white -rotate-2 mr-2 mt-2">
-              Taha
-            </span>
-            <span ref={word2AnimRef} className="relative inline-block px-4 py-2 bg-slate-900 text-white rotate-2 mt-2">
-              Media
-            </span>
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.25rem] font-black leading-[0.9] tracking-tighter text-blue-950">
+            {/* Protected text container for SplitType */}
+            <div ref={textRef} className="pb-2">
+              <span className="text-blue-600">/</span>build <br />
+              brands that win <span className="text-blue-600">—</span>
+            </div>
+            
+            {/* Tags moved OUTSIDE the SplitType container to protect their refs */}
+            <div className="mt-4 flex items-center flex-wrap">
+              <span ref={word1AnimRef} className="relative inline-block px-4 py-2 bg-blue-600 text-white -rotate-2 mr-2 shadow-lg">
+                Taha
+              </span>
+              <span ref={word2AnimRef} className="relative inline-block px-4 py-2 bg-slate-900 text-white rotate-2 shadow-lg">
+                Media
+              </span>
+            </div>
           </h1>
 
           <div className="mt-10">
-            <p className="text-slate-400 text-sm mb-4 font-bold uppercase tracking-widest">
+            <p ref={subtitleRef} className="text-slate-400 text-sm mb-4 font-bold uppercase tracking-widest">
               Let's start discussing your project
             </p>
 
             <button
-              className="px-10 py-4 bg-blue-950 text-white rounded-md text-lg font-bold shadow-2xl relative z-10"
+              ref={buttonRef}
+              className="px-10 py-4 bg-blue-950 text-white rounded-md text-lg font-bold shadow-2xl relative z-10 transition-transform hover:-translate-y-1"
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
             >
@@ -268,15 +238,6 @@ const Hero = ({ setIsHovering }) => {
           </div>
 
           <div className="absolute bottom-14 -left-2 md:-left-10 z-30 glass-card p-5 rounded-2xl w-44 sm:w-48 floating-fast border-l-4 border-l-blue-600">
-            {/* <div className="flex items-center space-x-3 mb-2">
-              <div className="flex -space-x-2">
-                <div className="w-8 h-8 rounded-full border-2 border-white bg-slate-200" />
-                <div className="w-8 h-8 rounded-full border-2 border-white bg-blue-100" />
-                <div className="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[10px] font-bold">
-                  +
-                </div>
-              </div>
-            </div> */}
             <h4 className="text-2xl font-extrabold text-slate-900">40+</h4>
             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
               Brands Elevated
@@ -285,35 +246,8 @@ const Hero = ({ setIsHovering }) => {
 
           <div className="absolute top-6 right-1/4 w-3 h-3 bg-blue-600 rounded-full floating-ui" />
           <div className="absolute bottom-1/3 right-0 w-2 h-2 bg-slate-200 rounded-full floating-delayed-ui" />
-
-          <div className="absolute top-1/2 left-0 z-10 opacity-20 pointer-events-none">
-            <svg
-              width="60"
-              height="60"
-              viewBox="0 0 60 60"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M30 0L33.5 26.5L60 30L33.5 33.5L30 60L26.5 33.5L0 30L26.5 26.5L30 0Z"
-                fill="#1e293b"
-              />
-            </svg>
-          </div>
         </div>
       </div>
-
-      {/* <div className="mt-20 opacity-20">
-        <svg width="200" height="100" viewBox="0 0 200 100">
-          <path
-            d="M10,90 Q100,10 190,90"
-            fill="none"
-            stroke="black"
-            strokeWidth="2"
-            strokeDasharray="5,5"
-          />
-        </svg>
-      </div> */}
     </section>
   );
 };

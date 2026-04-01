@@ -6,6 +6,7 @@ import { X } from "lucide-react";
 import FinalCTA from "../components/home/FinalCTA";
 import Footer from "../components/home/Footer";
 import Hero from "../components/home/Hero";
+import HeroWithRobot from "../components/home/HeroWithRobot";
 import AboutUs from "../components/home/AboutUs";
 import InfiniteServices from "../components/home/InfiniteServices";
 import Navbar from "../components/home/Navbar";
@@ -81,7 +82,7 @@ export default function Home() {
       />
 
       <main className="relative z-10">
-        <Hero setIsHovering={setIsHovering} />
+        <HeroWithRobot setIsHovering={setIsHovering} />
         <AboutUs setIsHovering={setIsHovering} />
         <WhyUs setIsHovering={setIsHovering} />
         <AnimatedServices setIsHovering={setIsHovering} />
