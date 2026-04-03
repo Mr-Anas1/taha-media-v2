@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Pin, Zap } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,7 +9,6 @@ import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot.jsx
 
 const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
   const heroSectionRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
   
   // Separation of concerns for animations
   const robotFloatRef = useRef(null);
@@ -22,11 +21,6 @@ const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
 
   const ROBOT_SCENE_URL =
     "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode";
-
-  // Detect mobile once on mount
-  useEffect(() => {
-    setIsMobile(window.matchMedia('(max-width: 768px)').matches);
-  }, []);
 
   // --- 1. MAIN GSAP TIMELINES ---
   useEffect(() => {
@@ -193,22 +187,10 @@ const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
                 
                 {/* Inner Wrapper: Handles Entry & Float */}
                 <div ref={robotFloatRef} className="w-full h-full will-change-transform rounded-2xl overflow-hidden">
-                  {/* Load heavy Spline only on desktop; show a lightweight image on mobile */}
-                  {isMobile ? (
-                    <div className="w-full h-full flex items-center justify-center rounded-2xl bg-gradient-to-br from-blue-50 to-slate-100 overflow-hidden">
-                      <img
-                        src="/images/guy-thinking.webp"
-                        alt="Digital Excellence"
-                        className="w-full h-full object-cover object-center"
-                        loading="eager"
-                      />
-                    </div>
-                  ) : (
-                    <InteractiveRobotSpline
-                      scene={ROBOT_SCENE_URL}
-                      className="w-full h-full"
-                    />
-                  )}
+                  <InteractiveRobotSpline
+                    scene={ROBOT_SCENE_URL}
+                    className="w-full h-full"
+                  />
                 </div>
 
               </div>

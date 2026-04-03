@@ -160,9 +160,14 @@ const AnimatedServices = ({ setIsHovering }) => {
     >
       <div className="flex flex-col items-center justify-start lg:justify-center min-h-screen">
         
-        {/* Header */}
-        <div className={`mb-5 lg:mb-20 text-center z-50 transition-opacity duration-500 ${activeIndex !== null ? 'opacity-20' : 'opacity-100'}`}>
-          <span className="bg-blue-600  text-white px-3 py-1 rounded text-xs font-bold uppercase tracking-widest">
+        {/* Header — sticky on mobile so cards scrolling up don't cover it */}
+        <div className={`
+          sticky top-0 z-50 pt-8 pb-4 bg-white w-full text-center
+          lg:static lg:pt-0 lg:pb-0 lg:bg-transparent lg:mb-20
+          transition-opacity duration-500
+          ${activeIndex !== null ? 'opacity-100 lg:opacity-20' : 'opacity-100'}
+        `}>
+          <span className="bg-blue-600 text-white px-3 py-1 rounded text-xs font-bold uppercase tracking-widest">
             What We Offer
           </span>
           <h2 className="text-5xl md:text-7xl lg:text-9xl font-black text-[#1A1A1A] mt-2 tracking-tighter leading-none">
