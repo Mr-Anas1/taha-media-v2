@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Pin, Zap } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -19,8 +19,18 @@ const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
   const word1AnimRef = useRef(null);
   const word2AnimRef = useRef(null);
 
+  const [isMobile, setIsMobile] = useState(false);
+
   const ROBOT_SCENE_URL =
     "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode";
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mq.matches);
+    const handler = (e) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   // --- 1. MAIN GSAP TIMELINES ---
   useEffect(() => {
@@ -187,10 +197,19 @@ const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
                 
                 {/* Inner Wrapper: Handles Entry & Float */}
                 <div ref={robotFloatRef} className="w-full h-full will-change-transform rounded-2xl overflow-hidden">
-                  <InteractiveRobotSpline
-                    scene={ROBOT_SCENE_URL}
-                    className="w-full h-full"
-                  />
+                  {isMobile ? (
+                    <img
+                      src="/images/robot.png"
+                      alt="Taha Media Robot"
+                      className="w-full h-full object-contain object-center"
+                      loading="eager"
+                    />
+                  ) : (
+                    <InteractiveRobotSpline
+                      scene={ROBOT_SCENE_URL}
+                      className="w-full h-full"
+                    />
+                  )}
                 </div>
 
               </div>
