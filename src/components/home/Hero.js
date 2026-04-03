@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 
 
-gsap.registerPlugin(ScrollTrigger);
 
 const Hero = ({ setIsHovering }) => {
   const heroSectionRef = useRef(null);
@@ -197,7 +196,7 @@ const Hero = ({ setIsHovering }) => {
     <section ref={heroSectionRef} className="min-h-screen pt-36 md:pt-44 px-6 relative">
       <div className="max-w-7xl mx-auto grid items-center gap-14 md:gap-10 md:grid-cols-2">
         <div className="relative text-left">
-          <div className="absolute -top-10 -left-6 animate-pulse">
+          <div className="absolute -top-10 -left-6 hidden sm:block">
             <Zap className="text-blue-600 fill-blue-600" size={40} />
           </div>
 
@@ -236,16 +235,17 @@ const Hero = ({ setIsHovering }) => {
             <div className="absolute top-14 right-0 w-56 h-56 md:w-64 md:h-64 border border-slate-100 rounded-full opacity-50 floating-delayed" />
           </div>
 
+          {/* Service tags - shown from sm upward using CSS hidden class */}
           <div className="absolute top-1/4 -right-4 md:-right-10 z-30 hidden sm:flex flex-col space-y-4">
-            <div className="service-tag glass-card px-4 py-2 rounded-full text-sm font-bold text-slate-700 shadow-sm cursor-default flex items-center space-x-2 floating">
+            <div className="service-tag glass-card px-4 py-2 rounded-full text-sm font-bold text-slate-700 shadow-sm cursor-default flex items-center space-x-2">
               <span className="w-2 h-2 rounded-full bg-blue-500" />
               <span>UI/UX Design</span>
             </div>
-            <div className="service-tag glass-card px-4 py-2 rounded-full text-sm font-bold text-slate-700 shadow-sm cursor-default flex items-center space-x-2 floating-delayed translate-x-12">
+            <div className="service-tag glass-card px-4 py-2 rounded-full text-sm font-bold text-slate-700 shadow-sm cursor-default flex items-center space-x-2 translate-x-12">
               <span className="w-2 h-2 rounded-full bg-indigo-500" />
               <span>Branding</span>
             </div>
-            <div className="service-tag glass-card px-4 py-2 rounded-full text-sm font-bold text-slate-700 shadow-sm cursor-default flex items-center space-x-2 floating-fast">
+            <div className="service-tag glass-card px-4 py-2 rounded-full text-sm font-bold text-slate-700 shadow-sm cursor-default flex items-center space-x-2">
               <span className="w-2 h-2 rounded-full bg-yellow-500" />
               <span>Strategy</span>
             </div>

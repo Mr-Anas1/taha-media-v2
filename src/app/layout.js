@@ -5,6 +5,11 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Lenis from "@studio-freight/lenis";
 import { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register GSAP plugins once globally
+gsap.registerPlugin(ScrollTrigger);
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,28 +25,33 @@ const geistMono = Geist_Mono({
 export default function RootLayout({ children }) {
 
   useEffect(() => {
-    const lenis = new Lenis({
-      smooth: true,
-      lerp: 0.08,
-    });
+    // Only enable Lenis smooth scroll on desktop — mobile uses native scroll for best performance
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    let lenis = null;
+    let rafId = null;
 
-    // Make lenis available globally
-    window.lenis = lenis;
+    if (!isMobile) {
+      lenis = new Lenis({
+        lerp: 0.1,          // slightly higher = snappier response
+        smoothWheel: true,
+        syncTouch: false,   // don't intercept touch events
+      });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+      window.lenis = lenis;
+
+      function raf(time) {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+      }
+
+      rafId = requestAnimationFrame(raf);
     }
-
-    requestAnimationFrame(raf);
 
     // Load EmailJS script
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
     script.async = true;
     script.onload = () => {
-      // Initialize EmailJS with your public key
-      // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
       if (window.emailjs) {
         window.emailjs.init("YOUR_PUBLIC_KEY");
       }
@@ -49,9 +59,11 @@ export default function RootLayout({ children }) {
     document.body.appendChild(script);
 
     return () => {
-      lenis.destroy();
-      delete window.lenis;
-      // Clean up EmailJS script
+      if (lenis) {
+        lenis.destroy();
+        delete window.lenis;
+      }
+      if (rafId) cancelAnimationFrame(rafId);
       if (document.body.contains(script)) {
         document.body.removeChild(script);
       }

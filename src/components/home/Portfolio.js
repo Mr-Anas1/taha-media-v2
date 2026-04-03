@@ -5,7 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import DogEarCard from "./DogEarCard";
 import WorkSticker from "./WorkSticker";
 
-gsap.registerPlugin(ScrollTrigger);
 
 const Portfolio = ({ setIsHovering }) => {
   const sectionRef = useRef(null);

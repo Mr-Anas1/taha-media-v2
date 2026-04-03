@@ -97,8 +97,9 @@ body {
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
 }
@@ -143,4 +144,33 @@ body {
 
 .no-smooth-scroll * {
   scroll-behavior: auto !important;
+}
+
+/* Disable expensive looping animations on mobile to save battery & CPU */
+@media screen and (max-width: 768px) {
+  .floating,
+  .floating-delayed,
+  .floating-fast,
+  .floating-ui,
+  .floating-delayed-ui,
+  .floating-fast-ui {
+    animation: none !important;
+  }
+
+  .blink-text {
+    animation: none !important;
+    opacity: 1;
+  }
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

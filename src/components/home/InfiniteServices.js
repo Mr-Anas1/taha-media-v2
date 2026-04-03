@@ -35,27 +35,29 @@ const InfiniteServices = ({ setIsHovering }) => {
       tl2.current = gsap.to(row2Ref.current, {
         xPercent: 0,
         ease: "none",
-        duration: 25, // Slightly different speed for parallax feel
+        duration: 25,
         repeat: -1,
       });
 
-      // 2. High-Performance Mouse Tracker for the Glow
-      const xTo = gsap.quickTo(glowRef.current, "x", { duration: 0.6, ease: "power3.out" });
-      const yTo = gsap.quickTo(glowRef.current, "y", { duration: 0.6, ease: "power3.out" });
+      // 2. Mouse Glow - desktop only
+      const isTouchDevice = window.matchMedia('(hover: none)').matches;
+      if (!isTouchDevice && glowRef.current) {
+        const xTo = gsap.quickTo(glowRef.current, "x", { duration: 0.6, ease: "power3.out" });
+        const yTo = gsap.quickTo(glowRef.current, "y", { duration: 0.6, ease: "power3.out" });
 
-      const handleMouseMove = (e) => {
-        if (!sectionRef.current) return;
-        const rect = sectionRef.current.getBoundingClientRect();
-        // Center the glow on the cursor
-        xTo(e.clientX - rect.left - 200); 
-        yTo(e.clientY - rect.top - 200);
-      };
+        const handleMouseMove = (e) => {
+          if (!sectionRef.current) return;
+          const rect = sectionRef.current.getBoundingClientRect();
+          xTo(e.clientX - rect.left - 200); 
+          yTo(e.clientY - rect.top - 200);
+        };
 
-      sectionRef.current.addEventListener("mousemove", handleMouseMove);
+        sectionRef.current.addEventListener("mousemove", handleMouseMove);
 
-      return () => {
-        sectionRef.current?.removeEventListener("mousemove", handleMouseMove);
-      };
+        return () => {
+          sectionRef.current?.removeEventListener("mousemove", handleMouseMove);
+        };
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -74,8 +76,8 @@ const InfiniteServices = ({ setIsHovering }) => {
 
   // Helper to render the looping text items
   const renderMarqueeItems = (services) => {
-    // Quadruple the array to ensure it fills ultra-wide monitors before resetting
-    const duplicatedServices = [...services, ...services, ...services, ...services];
+    // Duplicate 2x - sufficient for all screen sizes, keeps DOM lean
+    const duplicatedServices = [...services, ...services];
     
     return duplicatedServices.map((service, idx) => (
       <div key={idx} className="flex items-center">

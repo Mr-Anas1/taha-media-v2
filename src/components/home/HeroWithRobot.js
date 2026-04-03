@@ -1,15 +1,15 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Pin, Zap } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot.jsx";
 
-gsap.registerPlugin(ScrollTrigger);
 
 const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
   const heroSectionRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
   
   // Separation of concerns for animations
   const robotFloatRef = useRef(null);
@@ -22,6 +22,11 @@ const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
 
   const ROBOT_SCENE_URL =
     "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode";
+
+  // Detect mobile once on mount
+  useEffect(() => {
+    setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+  }, []);
 
   // --- 1. MAIN GSAP TIMELINES ---
   useEffect(() => {
@@ -88,23 +93,22 @@ const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
     return () => ctx.revert();
   }, []);
 
-  // --- 2. HIGH-PERFORMANCE MOUSE PARALLAX ---
+  // --- 2. HIGH-PERFORMANCE MOUSE PARALLAX (Desktop Only) ---
   useEffect(() => {
-    if (!robotParallaxRef.current) return;
+    // Skip on touch devices - mouse parallax is meaningless and wastes CPU
+    const isTouchDevice = window.matchMedia('(hover: none)').matches;
+    if (isTouchDevice || !robotParallaxRef.current) return;
 
-    // Use GSAP quickTo for massive performance gains on mousemove
     const xTo = gsap.quickTo(robotParallaxRef.current, "x", { duration: 0.5, ease: "power3.out" });
     const yTo = gsap.quickTo(robotParallaxRef.current, "y", { duration: 0.5, ease: "power3.out" });
 
     const handleMouseMove = (e) => {
-      // Calculate offset based on center of screen
       const x = (window.innerWidth / 2 - e.clientX) / 40;
       const y = (window.innerHeight / 2 - e.clientY) / 40;
       xTo(x);
       yTo(y);
     };
 
-    // passive: true prevents the listener from blocking scrolling performance
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     
     return () => window.removeEventListener("mousemove", handleMouseMove);
@@ -116,10 +120,10 @@ const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#FDFDFD] py-14"
     >
-      {/* Background */}
+      {/* Background - blur effects hidden on mobile for perf */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-blue-50 rounded-full blur-[80px] opacity-40" />
-        <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-slate-100 rounded-full blur-[60px] opacity-30" />
+        <div className="absolute top-1/4 right-1/4 w-48 h-48 bg-blue-50 rounded-full blur-[60px] opacity-40 hidden sm:block" />
+        <div className="absolute bottom-1/4 left-1/4 w-36 h-36 bg-slate-100 rounded-full blur-[40px] opacity-30 hidden sm:block" />
         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/30 to-transparent" />
       </div>
 
@@ -189,10 +193,22 @@ const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
                 
                 {/* Inner Wrapper: Handles Entry & Float */}
                 <div ref={robotFloatRef} className="w-full h-full will-change-transform rounded-2xl overflow-hidden">
-                  <InteractiveRobotSpline
-                    scene={ROBOT_SCENE_URL}
-                    className="w-full h-full"
-                  />
+                  {/* Load heavy Spline only on desktop; show a lightweight image on mobile */}
+                  {isMobile ? (
+                    <div className="w-full h-full flex items-center justify-center rounded-2xl bg-gradient-to-br from-blue-50 to-slate-100 overflow-hidden">
+                      <img
+                        src="/images/guy-thinking.webp"
+                        alt="Digital Excellence"
+                        className="w-full h-full object-cover object-center"
+                        loading="eager"
+                      />
+                    </div>
+                  ) : (
+                    <InteractiveRobotSpline
+                      scene={ROBOT_SCENE_URL}
+                      className="w-full h-full"
+                    />
+                  )}
                 </div>
 
               </div>
@@ -208,9 +224,9 @@ const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
           </div>
         </div>
 
-        {/* Decorative Elements */}
-        <div className="absolute top-6 right-1/4 w-3 h-3 bg-blue-600 rounded-full floating-ui animate-pulse" />
-        <div className="absolute bottom-1/3 right-0 w-2 h-2 bg-slate-200 rounded-full floating-delayed-ui animate-bounce" />
+        {/* Decorative Elements - hidden on mobile to reduce paint cost */}
+        <div className="absolute top-6 right-1/4 w-3 h-3 bg-blue-600 rounded-full hidden sm:block floating-ui" />
+        <div className="absolute bottom-1/3 right-0 w-2 h-2 bg-slate-200 rounded-full hidden sm:block floating-delayed-ui" />
 
         <div className="absolute top-1/2 left-0 z-10 opacity-20 pointer-events-none">
           <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -21,20 +21,20 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
-  const [showNavbar, setShowNavbar] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [isContactOpen, setIsContactOpen] = useState(false);
-
-
 
   const isVisible = useNavbarVisibility();
 
 
   useEffect(() => {
+    // Only track mouse on non-touch devices
+    const isTouchDevice = window.matchMedia('(hover: none)').matches;
+    if (isTouchDevice) return;
+
     const handleMouseMove = (e) => {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
@@ -60,23 +60,6 @@ export default function Home() {
     return () => document.removeEventListener('click', handleAnchorClick);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Show navbar when scrolling up, hide when scrolling down
-      if (currentScrollY < lastScrollY) {
-        setShowNavbar(true);
-      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setShowNavbar(false);
-      }
-      
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
 
   return (
     <div className="bg-grid bg-[#FDFDFD] text-slate-950 font-sans selection:bg-blue-600 selection:text-white overflow-x-hidden min-h-screen">

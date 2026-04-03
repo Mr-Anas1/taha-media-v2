@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 
-gsap.registerPlugin(ScrollTrigger);
 
 const FinalCTA = ({ setIsHovering, onContactClick }) => {
   const sectionRef = useRef(null);
@@ -78,16 +77,19 @@ const FinalCTA = ({ setIsHovering, onContactClick }) => {
         });
       }
 
-      // 4. PARALLAX BACKGROUND TEXT
-      gsap.to(bgTextRef.current, {
-        xPercent: -20,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-        }
-      });
+      // 4. PARALLAX BACKGROUND TEXT - desktop only
+      const isMobileScreen = window.matchMedia('(max-width: 768px)').matches;
+      if (!isMobileScreen) {
+        gsap.to(bgTextRef.current, {
+          xPercent: -20,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+          }
+        });
+      }
 
       // 5. MAGNETIC BUTTON SETUP
       anims.current.btnX = gsap.quickTo(magneticButtonRef.current, "x", { duration: 0.3, ease: "power3.out" });
@@ -125,13 +127,12 @@ const FinalCTA = ({ setIsHovering, onContactClick }) => {
         Transform Your Business Transform Your Business
       </div>
 
-      {/* Decorative Flying Man */}
+      {/* Decorative Flying Man - no CSS animation stacked on top of GSAP */}
       <div ref={flyingManRef} className="absolute z-20 pointer-events-none w-32 sm:w-52 lg:w-72">
         <img
           src="/images/man-flying.webp"
           alt="Flying Man"
-          className="w-full h-auto drop-shadow-[0_35px_35px_rgba(0,0,0,0.15)] animate-pulse"
-          style={{ animationDuration: '3s' }}
+          className="w-full h-auto drop-shadow-[0_35px_35px_rgba(0,0,0,0.15)]"
         />
       </div>
 

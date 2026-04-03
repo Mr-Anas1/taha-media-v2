@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 
-gsap.registerPlugin(ScrollTrigger);
 
 const AboutUs = ({ setIsHovering }) => {
   const sectionRef = useRef(null);
@@ -27,18 +26,21 @@ const AboutUs = ({ setIsHovering }) => {
         zIndex: 0
       });
 
-      // Background text horizontal parallax - works on all screens
-      gsap.to(bgTextRef.current, {
-        xPercent: -30,
-        opacity: 0.3,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-        },
-      });
+      // Background text horizontal parallax - desktop only to reduce mobile repaint
+      const isMobileScreen = window.matchMedia('(max-width: 768px)').matches;
+      if (!isMobileScreen) {
+        gsap.to(bgTextRef.current, {
+          xPercent: -30,
+          opacity: 0.3,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+      }
 
       // Liquid Title Animation
       const titleSplit = new SplitType(".about-title", { types: "chars" });

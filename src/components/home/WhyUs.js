@@ -5,7 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 import { TrendingUp, Trophy, Globe, Briefcase, ArrowRight } from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger);
 
 const WhyUs = ({ setIsHovering }) => {
   const sectionRef = useRef(null);
@@ -136,9 +135,9 @@ const WhyUs = ({ setIsHovering }) => {
   return (
     <section ref={sectionRef} id="why-us" className="relative py-24 lg:py-32 bg-[#FDFDFD] overflow-hidden">
       
-      {/* Subtle Background Elements */}
+      {/* Subtle Background Elements - use smaller blur to reduce GPU cost */}
       <div className="absolute inset-0 pointer-events-none flex justify-center items-center">
-        <div className="w-[800px] h-[800px] bg-blue-50/50 rounded-full blur-[100px] opacity-60" />
+        <div className="w-[400px] h-[400px] bg-blue-50/50 rounded-full blur-[80px] opacity-50 hidden sm:block" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
