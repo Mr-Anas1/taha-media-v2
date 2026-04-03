@@ -7,7 +7,7 @@ import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FinalCTA = ({ setIsHovering }) => {
+const FinalCTA = ({ setIsHovering, onContactClick }) => {
   const sectionRef = useRef(null);
   const textRef = useRef(null);
   const word1AnimRef = useRef(null);
@@ -115,14 +115,14 @@ const FinalCTA = ({ setIsHovering }) => {
   };
 
   return (
-    <section ref={sectionRef} className="py-40 px-6 bg-[#FDFDFD] text-center relative overflow-hidden">
+    <section ref={sectionRef} id="contact" className="py-40 px-6 bg-[#FDFDFD] text-center relative overflow-hidden">
       
       {/* Parallax Background Text */}
       <div 
         ref={bgTextRef}
         className="absolute top-1/2 left-0 -translate-y-1/2 text-[20vw] font-black text-slate-100/50 whitespace-nowrap pointer-events-none select-none z-0 uppercase"
       >
-        Ready to start? Ready to start?
+        Transform Your Business Transform Your Business
       </div>
 
       {/* Decorative Flying Man */}
@@ -139,26 +139,26 @@ const FinalCTA = ({ setIsHovering }) => {
         
         <div className="inline-flex items-center gap-2 mb-8 bg-blue-50 border border-blue-100 px-4 py-2 rounded-full">
           <Sparkles size={14} className="text-blue-600" />
-          <span className="text-blue-600 font-bold text-[10px] uppercase tracking-widest">The Next Step</span>
+          <span className="text-blue-600 font-bold text-[10px] uppercase tracking-widest">Ready to Transform?</span>
         </div>
 
         <h2 className="text-6xl md:text-9xl font-black text-slate-950 tracking-tighter leading-[0.8] mb-12">
           <div ref={textRef}>
-            let's work <br />
-            /together
+            Let's Build Your <br />
+            Digital Success
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3 mt-4">
             <span ref={word1AnimRef} className="relative inline-block px-6 py-2 bg-blue-600 text-white rotate-1 shadow-xl rounded-lg text-4xl md:text-6xl">
-              stay.
+              Together
             </span>
             <span ref={word2AnimRef} className="relative inline-block px-6 py-2 bg-slate-900 text-white -rotate-2 shadow-xl rounded-lg text-4xl md:text-6xl">
-              creative
+              Today
             </span>
           </div>
         </h2>
 
         <p className="text-lg text-slate-500 max-w-xl mx-auto mb-16 leading-relaxed font-medium">
-          Have a vision you want to bring to life? We’re currently accepting new projects for 2024. Let’s build something that makes an impact.
+          Ready to leverage AI-powered digital solutions for your brand? Taha Media is here to transform your vision into reality with cutting-edge technology and proven strategies.
         </p>
 
         {/* Magnetic Button Container */}
@@ -171,6 +171,7 @@ const FinalCTA = ({ setIsHovering }) => {
             ref={magneticButtonRef}
             className="group relative px-12 py-6 bg-slate-900 text-white rounded-full text-xl font-bold shadow-2xl transition-all duration-300 overflow-hidden"
             onMouseEnter={() => setIsHovering?.(true)}
+            onClick={onContactClick}
           >
             <span className="relative z-10 flex items-center gap-3">
               Start a Project

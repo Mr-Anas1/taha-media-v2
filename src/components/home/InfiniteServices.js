@@ -3,11 +3,11 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 const servicesRow1 = [
-  "UI/UX Design", "Branding", "Strategy", "Web Development", "Mobile Apps", "E‑Commerce"
+  "Content Creation", "Personal Branding", "Website & App Building", "Meta & LinkedIn Ads", "Google Ads", "SEO"
 ];
 
 const servicesRow2 = [
-  "SEO & Growth", "Content Creation", "Digital Marketing", "Product Design", "Animation", "Consulting"
+  "AI Automation", "AI Calling Agents", "Digital Strategy", "Brand Development", "Social Media Marketing", "Data Analytics"
 ];
 
 const InfiniteServices = ({ setIsHovering }) => {

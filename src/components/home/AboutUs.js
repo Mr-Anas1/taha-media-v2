@@ -152,7 +152,7 @@ const AboutUs = ({ setIsHovering }) => {
 
   const stats = [
     { number: "40", label: "Brands Elevated", suffix: "+" },
-    { number: "8", label: "Years Experience", suffix: "+" },
+    { number: "3", label: "Years Experience", suffix: "+" },
     { number: "100", label: "Satisfaction", suffix: "%" },
   ];
 
@@ -164,7 +164,7 @@ const AboutUs = ({ setIsHovering }) => {
   ];
 
   return (
-    <section ref={sectionRef} className="relative py-20 lg:py-40 px-6 bg-white overflow-hidden">
+    <section ref={sectionRef} id="about" className="relative py-20 lg:py-40 px-6 bg-white overflow-hidden">
       
       {/* Background Parallax Text */}
       <div 

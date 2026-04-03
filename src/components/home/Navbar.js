@@ -2,7 +2,7 @@
 import React from "react";
 import { Menu, Pin } from "lucide-react";
 
-const Navbar = ({ setIsMenuOpen, setIsHovering, showNavbar, isVisible }) => {
+const Navbar = ({ setIsMenuOpen, setIsHovering, showNavbar, isVisible, onContactClick }) => {
   if (!showNavbar) return null;
 
   return (
@@ -29,19 +29,27 @@ const Navbar = ({ setIsMenuOpen, setIsHovering, showNavbar, isVisible }) => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-8 items-center text-xs font-bold uppercase tracking-widest text-slate-500">
-          {["Service", "Portfolios", "Work", "Contact"].map((link) => (
+          {[
+            { name: "Service", href: "#services" },
+            { name: "Portfolios", href: "#portfolio" },
+            { name: "Work", href: "#portfolio" },
+            { name: "Contact", href: "#contact" }
+          ].map((link) => (
             <a
-              key={link}
-              href="#"
+              key={link.name}
+              href={link.href}
               className="hover:text-blue-950 transition-colors"
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
             >
-              {link}
+              {link.name}
             </a>
           ))}
 
-          <button className="px-5 py-2 bg-blue-950 text-white rounded shadow-md flex items-center gap-2 group">
+          <button 
+            className="px-5 py-2 bg-blue-950 text-white rounded shadow-md flex items-center gap-2 group"
+            onClick={onContactClick}
+          >
             Start a Project <Pin size={12} className="rotate-45" />
           </button>
         </div>

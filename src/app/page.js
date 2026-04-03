@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
+import ContactPopup from "../components/ui/ContactPopup";
 import FinalCTA from "../components/home/FinalCTA";
 import Footer from "../components/home/Footer";
 import Hero from "../components/home/Hero";
@@ -22,6 +23,7 @@ export default function Home() {
   const [isHovering, setIsHovering] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
 
 
@@ -34,6 +36,28 @@ export default function Home() {
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  // Smooth scrolling for anchor links
+  useEffect(() => {
+    const handleAnchorClick = (e) => {
+      const href = e.target.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }
+    };
+
+    document.addEventListener('click', handleAnchorClick);
+    return () => document.removeEventListener('click', handleAnchorClick);
   }, []);
 
   useEffect(() => {
@@ -79,19 +103,22 @@ export default function Home() {
         setIsHovering={setIsHovering}
         showNavbar={true}
         isVisible={isVisible}
+        onContactClick={() => setIsContactOpen(true)}
       />
 
       <main className="relative z-10">
-        <HeroWithRobot setIsHovering={setIsHovering} />
+        <HeroWithRobot setIsHovering={setIsHovering} onContactClick={() => setIsContactOpen(true)} />
         <AboutUs setIsHovering={setIsHovering} />
         <WhyUs setIsHovering={setIsHovering} />
         <AnimatedServices setIsHovering={setIsHovering} />
         <Portfolio setIsHovering={setIsHovering} />
         <InfiniteServices />
-        <FinalCTA setIsHovering={setIsHovering} />
+        <FinalCTA setIsHovering={setIsHovering} onContactClick={() => setIsContactOpen(true)} />
       </main>
 
       <Footer />
+      
+      <ContactPopup isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
 
       {isMenuOpen && (
         <div className="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center space-y-8 text-4xl font-black p-10 text-blue-950">
@@ -101,14 +128,19 @@ export default function Home() {
           >
             <X size={32} />
           </button>
-          {['Work', 'Services', 'About', 'Contact'].map((item) => (
+          {[
+            { name: 'Work', href: '#portfolio' },
+            { name: 'Services', href: '#services' },
+            { name: 'About', href: '#about' },
+            { name: 'Contact', href: '#contact' }
+          ].map((item) => (
             <a
-              key={item}
-              href="#"
+              key={item.name}
+              href={item.href}
               onClick={() => setIsMenuOpen(false)}
               className="hover:text-blue-600"
             >
-              /{item}
+              {item.name}
             </a>
           ))}
         </div>

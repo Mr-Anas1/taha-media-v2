@@ -14,21 +14,21 @@ const Portfolio = ({ setIsHovering }) => {
 
   const projects = [
     {
-      img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
+      img: "/images/work1.jpeg",
       title: "PixelCraft Studios",
       tag: "UI Design",
       rotation: "-rotate-2",
       offset: "",
     },
     {
-      img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800",
+      img: "/images/work2.jpeg",
       title: "Visualize Limits",
       tag: "3D Mastery",
       rotation: "rotate-1",
       offset: "md:translate-y-12",
     },
     {
-      img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=800",
+      img: "/images/work3.jpeg",
       title: "Illustrative Odyssey",
       tag: "Creative Art",
       rotation: "rotate-3",
@@ -90,7 +90,7 @@ const Portfolio = ({ setIsHovering }) => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 lg:py-32 px-6 bg-[#FDFDFD] relative overflow-hidden">
+    <section ref={sectionRef} id="portfolio" className="py-24 lg:py-32 px-6 bg-[#FDFDFD] relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
         {/* Title Wrapper */}

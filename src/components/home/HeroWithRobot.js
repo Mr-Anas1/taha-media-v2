@@ -8,7 +8,7 @@ import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot.jsx
 
 gsap.registerPlugin(ScrollTrigger);
 
-const HeroWithRobot = ({ setIsHovering }) => {
+const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
   const heroSectionRef = useRef(null);
   
   // Separation of concerns for animations
@@ -113,6 +113,7 @@ const HeroWithRobot = ({ setIsHovering }) => {
   return (
     <section
       ref={heroSectionRef}
+      id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#FDFDFD] py-14"
     >
       {/* Background */}
@@ -127,31 +128,32 @@ const HeroWithRobot = ({ setIsHovering }) => {
           
           {/* LEFT COLUMN */}
           <div className="order-2 lg:order-1 text-center lg:text-left px-4 sm:px-0">
+            
             <div className="inline-flex items-center space-x-2 mb-6">
               <div className="w-8 h-0.5 bg-blue-600" />
               <span className="text-blue-600 font-bold text-sm uppercase tracking-wider">
-                Welcome to Taha Media
+                Fastest Growing Agency in Tamil Nadu
               </span>
               <div className="w-8 h-0.5 bg-blue-600" />
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-[5rem] xl:text-[5.5rem] font-black text-slate-900 leading-[0.9] tracking-tighter mb-8">
               <div ref={textRef} className="pb-2 text-center lg:text-left">
-                We Create <br />
+                Digital Excellence <br />
               </div>
 
               <div className="mt-4 flex flex-wrap items-center justify-center lg:justify-start gap-3">
                 <span ref={word1AnimRef} className="relative inline-block px-6 py-2 bg-blue-600 text-white -rotate-2 shadow-xl rounded-lg">
-                  Digital
+                  for Modern
                 </span>
                 <span ref={word2AnimRef} className="relative inline-block px-6 py-2 bg-slate-900 text-white rotate-2 shadow-xl rounded-lg">
-                  Experiences
+                  Brands
                 </span>
               </div>
             </h1>
 
             <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto lg:mx-0">
-              Transform your ideas into powerful digital solutions. We're your partner in innovation, design, and growth.
+              Taha Media delivers cutting-edge digital solutions with AI-powered automation, personalized branding, and results-driven marketing strategies that transform businesses.
             </p>
 
             {/* CTA */}
@@ -160,8 +162,9 @@ const HeroWithRobot = ({ setIsHovering }) => {
                 className="group relative overflow-hidden px-8 py-4 bg-blue-600 text-white font-bold rounded-lg"
                 onMouseEnter={() => setIsHovering?.(true)}
                 onMouseLeave={() => setIsHovering?.(false)}
+                onClick={onContactClick}
               >
-                <span className="relative z-10 flex items-center gap-2">
+                <span className="relative z-10 flex items-center justify-center gap-2">
                   Start Your Project
                   <Pin size={16} className="rotate-45 group-hover:rotate-90 transition-transform duration-300" />
                 </span>
@@ -215,6 +218,7 @@ const HeroWithRobot = ({ setIsHovering }) => {
           </svg>
         </div>
       </div>
+      
     </section>
   );
 };

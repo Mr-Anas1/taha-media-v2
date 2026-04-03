@@ -11,12 +11,12 @@ const AnimatedServices = ({ setIsHovering }) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const services = [
-    { title: "CREATIVE FREELANCERS", color: "bg-[#FDE7F0]", description: "Providing expert financial guidance and management for independent creatives." },
-    { title: "STUDIOS & AGENCIES", color: "bg-[#A7F3D0]", description: "Creative financial solutions to help studios and agencies thrive and grow." },
-    { title: "CREATIVE COLLECTIVES", color: "bg-[#F9A8D4]", description: "All-in-one accounting for creative groups, ensuring smooth financial operations." },
-    { title: "PRODUCTION HOUSES", color: "bg-[#DCFCE7]", description: "Turning creative visions into reality with robust financial planning and execution." },
-    { title: "CREATIVE CONTRACTORS", color: "bg-[#FEF9C3]", description: "Expert financial support for contractors, optimizing income and managing expenses." },
-    { title: "MEDIA BUSINESSES", color: "bg-[#FBCFE8]", description: "Guiding clients to their milestones through media management and financial strategy." },
+    { title: "CONTENT CREATION", color: "bg-[#FDE7F0]", description: "Creating compelling content for all types of brands across social media, websites, and marketing campaigns." },
+    { title: "PERSONAL BRANDING", color: "bg-[#A7F3D0]", description: "Our signature service - building powerful personal brands that stand out and drive meaningful connections." },
+    { title: "WEBSITE & APP BUILDING", color: "bg-[#F9A8D4]", description: "Custom websites and mobile applications that deliver exceptional user experiences and drive business growth." },
+    { title: "META & LINKEDIN ADS", color: "bg-[#DCFCE7]", description: "Targeted advertising campaigns on Meta and LinkedIn platforms that reach your ideal audience and convert." },
+    { title: "GOOGLE ADS", color: "bg-[#FEF9C3]", description: "Strategic Google Ads campaigns that maximize ROI and put your brand in front of ready-to-buy customers." },
+    { title: "SEO OPTIMIZATION", color: "bg-[#FBCFE8]", description: "Comprehensive SEO strategies that boost your search rankings and drive organic traffic to your business." },
   ];
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const AnimatedServices = ({ setIsHovering }) => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=2000", // Longer scroll for mobile stacking
+          end: "+=1500", // Longer scroll for mobile stacking
           scrub: 1,
           pin: true,
           onLeaveBack: () => setActiveIndex(null),
@@ -78,7 +78,7 @@ const AnimatedServices = ({ setIsHovering }) => {
 
       // Cards fly up one by one and stack with a small offset
       tl.to(cards, {
-        y: (i) => i * 30, // Stacked effect (each card 20px lower than previous)
+        y: (i) => i * 70, // Stacked effect (each card 20px lower than previous)
         opacity: 1,
         stagger: 0.2,
         duration: 2,
@@ -120,7 +120,7 @@ const AnimatedServices = ({ setIsHovering }) => {
       if (i === index && newIndex !== null) {
         // --- POP UP ACTIVE CARD ---
         gsap.to(card, {
-          y: isMobile ? 0 : -50, // Mobile centers in the stack area
+          y: isMobile ? 0 : -120, // Increased from -50 to -120 for more upward movement
           x: 0,
           rotation: 0,
           scale: isMobile ? 1.05 : 1.1,
@@ -139,7 +139,7 @@ const AnimatedServices = ({ setIsHovering }) => {
         const dY = Math.abs(i - (services.length - 1) / 2) * 20;
 
         gsap.to(card, {
-          y: isDesktop ? dY : i * 20,
+          y: isDesktop ? dY : i * 70, // Fixed: Changed from i * 20 to i * 70 to match initial stacking
           x: isDesktop ? dX : 0,
           rotation: isDesktop ? dAngle : 0,
           scale: 1,
@@ -156,6 +156,7 @@ const AnimatedServices = ({ setIsHovering }) => {
   return (
     <section 
       ref={containerRef} 
+      id="services"
       className="relative bg-white w-full min-h-screen overflow-x-hidden lg:overflow-hidden  lg:py-0"
     >
       <div className="flex flex-col items-center justify-start lg:justify-center min-h-screen">
@@ -193,7 +194,7 @@ const AnimatedServices = ({ setIsHovering }) => {
               onMouseEnter={() => window.innerWidth >= 1024 && setIsHovering?.(true)}
               onMouseLeave={() => setIsHovering?.(false)}
             >
-              <div className="flex flex-col gap-4">
+              <div className="flex flex items-center lg:flex-col lg:items-start gap-4">
                 <div className="w-10 h-10 rounded-full border border-black/20 flex items-center justify-center font-bold">
                   {index + 1}
                 </div>
@@ -216,7 +217,7 @@ const AnimatedServices = ({ setIsHovering }) => {
         {activeIndex !== null && (
           <button 
           onClick={() => handleCardClick(null)}
-          className={`fixed bottom-10 px-8 py-3 bg-black text-white rounded-full text-xs font-black tracking-widest z-[110] transition-all duration-500 transform ${
+          className={`fixed bottom-8 lg:bottom-24 px-8 py-3 bg-black text-white rounded-full text-xs font-black tracking-widest z-[110] transition-all duration-500 transform ${
             activeIndex !== null ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
           }`}
         >

@@ -16,41 +16,41 @@ const WhyUs = ({ setIsHovering }) => {
   const stats = [
     {
       id: "01",
-      prefix: "$",
-      number: 812,
-      suffix: "M+",
-      label: "Money Raised",
-      desc: "Total revenue impact generated for our clients through strategic digital initiatives.",
+      prefix: "",
+      number: 150,
+      suffix: "+",
+      label: "Brands Transformed",
+      desc: "Businesses across Tamil Nadu and beyond transformed through our digital excellence and AI-powered solutions.",
       icon: TrendingUp,
       delay: 0,
     },
     {
       id: "02",
       prefix: "",
-      number: 12,
+      number: 50,
       suffix: "+",
-      label: "Unicorn Awards",
-      desc: "Recognized globally for excellence in design, development, and strategy.",
+      label: "Personal Brands Built",
+      desc: "Our signature service - creating powerful personal brands that stand out and drive meaningful connections.",
       icon: Trophy,
       delay: 0.1,
     },
     {
       id: "03",
       prefix: "",
-      number: 400,
-      suffix: "+",
-      label: "Global Clients",
-      desc: "Trusted by forward-thinking companies and enterprise brands worldwide.",
+      number: 95,
+      suffix: "%",
+      label: "Client Satisfaction",
+      desc: "Consistently delivering exceptional results that exceed expectations and drive measurable business growth.",
       icon: Globe,
       delay: 0.2,
     },
     {
       id: "04",
       prefix: "",
-      number: 425,
-      suffix: "+",
-      label: "Projects Completed",
-      desc: "Successfully launched platforms, campaigns, and digital products on time.",
+      number: 24,
+      suffix: "/7",
+      label: "AI Support",
+      desc: "Round-the-clock AI automation and calling agents ensuring your business never sleeps.",
       icon: Briefcase,
       delay: 0.3,
     },
@@ -149,13 +149,13 @@ const WhyUs = ({ setIsHovering }) => {
             <div ref={headerRef} className="inline-flex items-center space-x-2 mb-6">
               <div className="w-8 h-0.5 bg-blue-600" />
               <span className="text-blue-600 font-bold text-sm uppercase tracking-wider">
-                Why Choose Us
+                Why Choose Taha Media
               </span>
             </div>
             
             <h2 ref={titleRef} className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[0.9] tracking-tighter">
-              Recognize success. <br />
-              <span className="text-blue-600">Strive for more.</span>
+              Digital Excellence. <br />
+              <span className="text-blue-600">AI-Powered Results.</span>
             </h2>
           </div>
 

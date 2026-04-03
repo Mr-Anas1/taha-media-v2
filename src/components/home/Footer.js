@@ -57,10 +57,16 @@ const Footer = () => {
             <div>
               <h3 className="text-lg font-bold text-white mb-6">Services</h3>
               <ul className="space-y-3">
-                {["UI/UX Design", "Web Development", "Mobile Apps", "Branding", "Digital Marketing"].map((service) => (
-                  <li key={service}>
-                    <a href="#" className="text-slate-400 hover:text-white transition-colors duration-200">
-                      {service}
+                {[
+                  { name: "UI/UX Design", href: "#services" },
+                  { name: "Web Development", href: "#services" },
+                  { name: "Mobile Apps", href: "#services" },
+                  { name: "Branding", href: "#services" },
+                  { name: "Digital Marketing", href: "#services" }
+                ].map((service) => (
+                  <li key={service.name}>
+                    <a href={service.href} className="text-slate-400 hover:text-white transition-colors duration-200">
+                      {service.name}
                     </a>
                   </li>
                 ))}
@@ -71,10 +77,16 @@ const Footer = () => {
             <div>
               <h3 className="text-lg font-bold text-white mb-6">Company</h3>
               <ul className="space-y-3">
-                {["About Us", "Portfolio", "Careers", "Blog", "Contact"].map((item) => (
-                  <li key={item}>
-                    <a href="#" className="text-slate-400 hover:text-white transition-colors duration-200">
-                      {item}
+                {[
+                  { name: "About Us", href: "#about" },
+                  { name: "Portfolio", href: "#portfolio" },
+                  { name: "Careers", href: "#" },
+                  { name: "Blog", href: "#" },
+                  { name: "Contact", href: "#contact" }
+                ].map((item) => (
+                  <li key={item.name}>
+                    <a href={item.href} className="text-slate-400 hover:text-white transition-colors duration-200">
+                      {item.name}
                     </a>
                   </li>
                 ))}
@@ -98,14 +110,14 @@ const Footer = () => {
               {/* Social Links */}
               <div className="flex items-center gap-6">
                 {[
-                  { icon: Instagram, label: "Instagram" },
-                  { icon: Twitter, label: "Twitter" },
-                  { icon: Linkedin, label: "LinkedIn" },
-                  { icon: Github, label: "GitHub" },
-                ].map(({ icon: Icon, label }) => (
+                  { icon: Instagram, label: "Instagram", href: "#" },
+                  { icon: Twitter, label: "Twitter", href: "#" },
+                  { icon: Linkedin, label: "LinkedIn", href: "#" },
+                  { icon: Github, label: "GitHub", href: "#" },
+                ].map(({ icon: Icon, label, href }) => (
                   <a
                     key={label}
-                    href="#"
+                    href={href}
                     className="text-slate-400 hover:text-white transition-colors duration-200"
                     aria-label={label}
                   >
