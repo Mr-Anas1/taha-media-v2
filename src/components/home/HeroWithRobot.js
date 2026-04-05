@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot.jsx";
 
-
 const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
   const heroSectionRef = useRef(null);
   
@@ -118,6 +117,21 @@ const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  const handleViewWorkClick = () => {
+    if (typeof window === "undefined") return;
+
+    // If we're not on the homepage, navigate to the homepage anchor.
+    if (window.location.pathname !== "/") {
+      window.location.href = "/#portfolio";
+      return;
+    }
+
+    const el = document.getElementById("portfolio");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <section
       ref={heroSectionRef}
@@ -179,7 +193,13 @@ const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
                 <div className="absolute inset-0 bg-blue-700 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               </button>
 
-              <button className="px-8 py-4 border-2 border-slate-300 text-slate-700 font-bold rounded-lg hover:border-blue-600 hover:text-blue-600 transition-all duration-200 flex items-center justify-center gap-2">
+              <button
+                type="button"
+                onClick={handleViewWorkClick}
+                onMouseEnter={() => setIsHovering?.(true)}
+                onMouseLeave={() => setIsHovering?.(false)}
+                className="px-8 py-4 border-2 border-slate-300 text-slate-700 font-bold rounded-lg hover:border-blue-600 hover:text-blue-600 transition-all duration-200 flex items-center justify-center gap-2"
+              >
                 View Our Work
                 <Zap size={16} />
               </button>
