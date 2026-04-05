@@ -6,7 +6,7 @@ import SplitType from "split-type";
 import { TrendingUp, Trophy, Globe, Briefcase, ArrowRight } from "lucide-react";
 
 
-const WhyUs = ({ setIsHovering }) => {
+const WhyUs = ({ setIsHovering, onContactClick }) => {
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const titleRef = useRef(null);
@@ -159,6 +159,7 @@ const WhyUs = ({ setIsHovering }) => {
           </div>
 
           <button 
+            onClick={onContactClick}
             onMouseEnter={() => setIsHovering?.(true)}
             onMouseLeave={() => setIsHovering?.(false)}
             className="group relative flex items-center gap-3 px-8 py-4 bg-white border-2 border-slate-200 text-slate-900 rounded-full font-bold text-sm overflow-hidden hover:border-blue-600 transition-colors duration-300"

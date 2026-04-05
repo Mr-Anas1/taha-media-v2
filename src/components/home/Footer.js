@@ -107,7 +107,7 @@ const Footer = () => {
               
               {/* Copyright */}
               <div className="text-slate-400 text-sm">
-                © 2024 Taha Media. All rights reserved.
+                © {new Date().getFullYear()} Taha Media. All rights reserved.
               </div>
 
               {/* Social Links */}

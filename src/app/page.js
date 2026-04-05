@@ -13,6 +13,7 @@ import InfiniteServices from "../components/home/InfiniteServices";
 import Navbar from "../components/home/Navbar";
 import Portfolio from "../components/home/Portfolio";
 import AnimatedServices from "../components/home/AnimatedServices";
+import ResultsSection from "../components/home/ResultsSection";
 import Squiggles from "../components/home/Squiggles";
 import WhyUs from "../components/home/WhyUs";
 import useNavbarVisibility from "../hooks/useNavbarVisibility";
@@ -92,10 +93,12 @@ export default function Home() {
       <main className="relative z-10">
         <HeroWithRobot setIsHovering={setIsHovering} onContactClick={() => setIsContactOpen(true)} />
         <AboutUs setIsHovering={setIsHovering} />
-        <WhyUs setIsHovering={setIsHovering} />
+        <WhyUs setIsHovering={setIsHovering} onContactClick={() => setIsContactOpen(true)} />
         <AnimatedServices setIsHovering={setIsHovering} />
         <Portfolio setIsHovering={setIsHovering} />
-        <InfiniteServices />
+                <ResultsSection setIsHovering={setIsHovering} />
+
+        {/* <InfiniteServices /> */}
         <FinalCTA setIsHovering={setIsHovering} onContactClick={() => setIsContactOpen(true)} />
       </main>
 

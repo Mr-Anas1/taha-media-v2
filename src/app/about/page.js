@@ -194,43 +194,43 @@ const AboutPage = () => {
   }
 ];
 
-  const moments = [
-    { 
-      id: 1, 
-      img: "/images/moment1.jpeg", 
-      caption: "Recieving Award", 
-      category: "Culture", 
-      span: "md:col-span-2 md:row-span-2" 
-    },
-    { 
-      id: 2, 
-      img: "/images/work2.jpeg", 
-      caption: "Recording Podcast", 
-      category: "Work", 
-      span: "md:col-span-1 md:row-span-1" 
-    },
-    { 
-      id: 3, 
-      img: "/images/moment2.jpeg", 
-      caption: "Closing Clients", 
-      category: "Clients", 
-      span: "md:col-span-1 md:row-span-1" 
-    },
-    { 
-      id: 4, 
-      img: "/images/moment3.jpeg", 
-      caption: "Behind The Scenes", 
-      category: "Work", 
-      span: "md:col-span-1 md:row-span-1" 
-    },
-    { 
-      id: 5, 
-      img: "/images/moment4.jpeg", 
-      caption: "Guest Lecture", 
-      category: "Work", 
-      span: "md:col-span-2 md:row-span-1" 
-    },
-  ];
+ const moments = [
+  { 
+    id: 1, 
+    img: "/images/moment1.jpeg", 
+    caption: "Recognized for Excellence", 
+    category: "Achievement", 
+    span: "md:col-span-2 md:row-span-2" 
+  },
+  { 
+    id: 2, 
+    img: "/images/work2.jpeg", 
+    caption: "Capturing Ideas in Motion", 
+    category: "Creative", 
+    span: "md:col-span-1 md:row-span-1" 
+  },
+  { 
+    id: 3, 
+    img: "/images/moment2.jpeg", 
+    caption: "Turning Conversations into Clients", 
+    category: "Clients", 
+    span: "md:col-span-1 md:row-span-1" 
+  },
+  { 
+    id: 4, 
+    img: "/images/moment3.jpeg", 
+    caption: "Where the Work Happens", 
+    category: "Behind the Scenes", 
+    span: "md:col-span-1 md:row-span-1" 
+  },
+  { 
+    id: 5, 
+    img: "/images/moment4.jpeg", 
+    caption: "Sharing Knowledge, Building Impact", 
+    category: "Community", 
+    span: "md:col-span-2 md:row-span-1" 
+  },
+];
 
   return (
     <div ref={pageRef} className="min-h-screen bg-[#FDFDFD] font-sans">

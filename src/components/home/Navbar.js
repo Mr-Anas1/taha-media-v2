@@ -32,9 +32,9 @@ const Navbar = ({ setIsMenuOpen, setIsHovering, showNavbar, isVisible, onContact
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-8 items-center text-xs font-bold uppercase tracking-widest text-slate-500">
           {[
+            { name: "About us", href: "/about" },
             { name: "Service", href: "/#services" },
             { name: "Work", href: "/#portfolio" },
-            { name: "About us", href: "/about" },
             { name: "Contact", href: "/#contact" }
           ].map((link) => (
             <Link

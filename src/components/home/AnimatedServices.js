@@ -119,7 +119,7 @@ const AnimatedServices = ({ setIsHovering }) => {
       if (i === index && newIndex !== null) {
         // --- POP UP ACTIVE CARD ---
         gsap.to(card, {
-          y: isMobile ? 0 : -120, // Increased from -50 to -120 for more upward movement
+          y: isMobile ? 0 : -50, // Increased from -50 to -120 for more upward movement
           x: 0,
           rotation: 0,
           scale: isMobile ? 1.05 : 1.1,
@@ -163,7 +163,7 @@ const AnimatedServices = ({ setIsHovering }) => {
         {/* Header — sticky on mobile so cards scrolling up don't cover it */}
         <div className={`
           sticky top-0 z-50 pt-8 pb-4 bg-white w-full text-center
-          lg:static lg:pt-0 lg:pb-0 lg:bg-transparent lg:mb-20
+          lg:static lg:pt-0 lg:pb-0 lg:bg-transparent lg:mb-2
           transition-opacity duration-500
           ${activeIndex !== null ? 'opacity-100 lg:opacity-20' : 'opacity-100'}
         `}>
