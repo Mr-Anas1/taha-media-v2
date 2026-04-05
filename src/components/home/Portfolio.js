@@ -14,8 +14,8 @@ const Portfolio = ({ setIsHovering }) => {
   const projects = [
     {
       img: "/images/work1.jpeg",
-      title: "PixelCraft Studios",
-      tag: "UI Design",
+      title: "Arabian Garden",
+      tag: "AI Video",
       rotation: "-rotate-2",
       offset: "",
     },

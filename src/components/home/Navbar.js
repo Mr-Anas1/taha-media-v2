@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import { Menu, Pin } from "lucide-react";
 
 const Navbar = ({ setIsMenuOpen, setIsHovering, showNavbar, isVisible, onContactClick }) => {
@@ -16,8 +17,9 @@ const Navbar = ({ setIsMenuOpen, setIsHovering, showNavbar, isVisible, onContact
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-6">
         
         {/* Logo */}
-        <div
-          className="text-xl font-black tracking-tighter flex items-center gap-2 text-blue-950"
+        <Link
+          href="/"
+          className="text-xl font-black tracking-tighter flex items-center gap-2 text-blue-950 hover:text-blue-600 transition-colors"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
@@ -25,17 +27,17 @@ const Navbar = ({ setIsMenuOpen, setIsHovering, showNavbar, isVisible, onContact
             <span className="text-white text-[10px]">A</span>
           </div>
           Taha Media<span className="text-blue-600">.</span>
-        </div>
+        </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-8 items-center text-xs font-bold uppercase tracking-widest text-slate-500">
           {[
-            { name: "Service", href: "#services" },
-            { name: "Portfolios", href: "#portfolio" },
-            { name: "Work", href: "#portfolio" },
-            { name: "Contact", href: "#contact" }
+            { name: "Service", href: "/#services" },
+            { name: "Work", href: "/#portfolio" },
+            { name: "About us", href: "/about" },
+            { name: "Contact", href: "/#contact" }
           ].map((link) => (
-            <a
+            <Link
               key={link.name}
               href={link.href}
               className="hover:text-blue-950 transition-colors"
@@ -43,7 +45,7 @@ const Navbar = ({ setIsMenuOpen, setIsHovering, showNavbar, isVisible, onContact
               onMouseLeave={() => setIsHovering(false)}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
 
           <button 

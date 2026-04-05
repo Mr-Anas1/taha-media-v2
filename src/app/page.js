@@ -114,7 +114,7 @@ export default function Home() {
           {[
             { name: 'Work', href: '#portfolio' },
             { name: 'Services', href: '#services' },
-            { name: 'About', href: '#about' },
+            { name: 'About', href: '/about' },
             { name: 'Contact', href: '#contact' }
           ].map((item) => (
             <a

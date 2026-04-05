@@ -38,17 +38,22 @@ const Footer = () => {
 
               {/* Contact Info */}
               <div className="space-y-4">
-                <div className="flex items-center gap-3 text-slate-300">
-                  <Mail size={18} className="text-blue-400" />
-                  <span>hello@tahamedia.com</span>
-                </div>
-                <div className="flex items-center gap-3 text-slate-300">
-                  <Phone size={18} className="text-blue-400" />
-                  <span>+1 (555) 123-4567</span>
-                </div>
-                <div className="flex items-center gap-3 text-slate-300">
+                <div className="flex items-center gap-3 text-slate-400">
                   <MapPin size={18} className="text-blue-400" />
-                  <span>Dubai, UAE</span>
+                  <span className="text-sm">
+                    A-123, SIS Marakesh<br />
+                    Urapakkam<br />
+                    Chennai, Tamil Nadu<br />
+                    India
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 text-slate-400">
+                  <Phone size={18} className="text-blue-400" />
+                  <span className="text-sm">+91 96008 16505</span>
+                </div>
+                <div className="flex items-center gap-3 text-slate-400">
+                  <Mail size={18} className="text-blue-400" />
+                  <span className="text-sm">hello@tahamedia.com</span>
                 </div>
               </div>
             </div>
@@ -58,11 +63,11 @@ const Footer = () => {
               <h3 className="text-lg font-bold text-white mb-6">Services</h3>
               <ul className="space-y-3">
                 {[
-                  { name: "UI/UX Design", href: "#services" },
-                  { name: "Web Development", href: "#services" },
-                  { name: "Mobile Apps", href: "#services" },
-                  { name: "Branding", href: "#services" },
-                  { name: "Digital Marketing", href: "#services" }
+                  { name: "UI/UX Design", href: "/#services" },
+                  { name: "Web Development", href: "/#services" },
+                  { name: "Mobile Apps", href: "/#services" },
+                  { name: "Branding", href: "/#services" },
+                  { name: "Digital Marketing", href: "/#services" }
                 ].map((service) => (
                   <li key={service.name}>
                     <a href={service.href} className="text-slate-400 hover:text-white transition-colors duration-200">
@@ -78,11 +83,9 @@ const Footer = () => {
               <h3 className="text-lg font-bold text-white mb-6">Company</h3>
               <ul className="space-y-3">
                 {[
-                  { name: "About Us", href: "#about" },
-                  { name: "Portfolio", href: "#portfolio" },
-                  { name: "Careers", href: "#" },
-                  { name: "Blog", href: "#" },
-                  { name: "Contact", href: "#contact" }
+                  { name: "About Us", href: "/about" },
+                  { name: "Portfolio", href: "/#portfolio" },
+                  { name: "Contact", href: "/#contact" }
                 ].map((item) => (
                   <li key={item.name}>
                     <a href={item.href} className="text-slate-400 hover:text-white transition-colors duration-200">
@@ -110,16 +113,16 @@ const Footer = () => {
               {/* Social Links */}
               <div className="flex items-center gap-6">
                 {[
-                  { icon: Instagram, label: "Instagram", href: "#" },
-                  { icon: Twitter, label: "Twitter", href: "#" },
-                  { icon: Linkedin, label: "LinkedIn", href: "#" },
-                  { icon: Github, label: "GitHub", href: "#" },
+                  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/taha.media_" },
+                  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/tahamedia/posts/?feedView=all" },
                 ].map(({ icon: Icon, label, href }) => (
                   <a
                     key={label}
                     href={href}
                     className="text-slate-400 hover:text-white transition-colors duration-200"
                     aria-label={label}
+                    target={href !== "#" ? "_blank" : "_self"}
+                    rel={href !== "#" ? "noopener noreferrer" : ""}
                   >
                     <Icon size={20} />
                   </a>
