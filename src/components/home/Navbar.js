@@ -23,9 +23,7 @@ const Navbar = ({ setIsMenuOpen, setIsHovering, showNavbar, isVisible, onContact
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
-          <div className="w-6 h-6 bg-blue-900 rounded-sm rotate-12 flex items-center justify-center">
-            <span className="text-white text-[10px]">A</span>
-          </div>
+          <img src="/logo.jpg" alt="Logo" className="w-12 h-12 rounded-sm" />
           Taha Media<span className="text-blue-600">.</span>
         </Link>
 
