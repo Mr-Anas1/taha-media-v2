@@ -7,6 +7,7 @@ import Lenis from "@studio-freight/lenis";
 import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Analytics } from "@vercel/analytics/next"
 
 // Register GSAP plugins once globally
 gsap.registerPlugin(ScrollTrigger);
@@ -47,16 +48,29 @@ export default function RootLayout({ children }) {
       rafId = requestAnimationFrame(raf);
     }
 
-    // Load EmailJS script
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
-    script.async = true;
-    script.onload = () => {
-      if (window.emailjs) {
-        window.emailjs.init("YOUR_PUBLIC_KEY");
+    // Load EmailJS script (once) + init with env key
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+    const existingScript = document.getElementById("emailjs-sdk");
+    let script = existingScript;
+
+    const initEmailJs = () => {
+      if (!publicKey) return;
+      if (window.emailjs && !window.__emailjs_inited) {
+        window.emailjs.init(publicKey);
+        window.__emailjs_inited = true;
       }
     };
-    document.body.appendChild(script);
+
+    if (!script) {
+      script = document.createElement("script");
+      script.id = "emailjs-sdk";
+      script.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js";
+      script.async = true;
+      script.onload = initEmailJs;
+      document.body.appendChild(script);
+    } else {
+      initEmailJs();
+    }
 
     return () => {
       if (lenis) {
@@ -64,9 +78,7 @@ export default function RootLayout({ children }) {
         delete window.lenis;
       }
       if (rafId) cancelAnimationFrame(rafId);
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
+      // Don't remove the EmailJS script on unmount; RootLayout can remount during navigation.
     };
   }, []);
 
@@ -76,6 +88,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Analytics />
         {children}
       </body>
     </html>

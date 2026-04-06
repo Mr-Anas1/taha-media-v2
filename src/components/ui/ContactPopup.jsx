@@ -133,18 +133,28 @@ const ContactPopup = ({ isOpen, onClose }) => {
     setSubmitStatus(null);
 
     try {
-      if (typeof window.emailjs !== 'undefined') {
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+      const toEmail = process.env.NEXT_PUBLIC_CONTACT_TO_EMAIL || "info@tahamedia.in";
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error(
+          "EmailJS is not configured. Please set NEXT_PUBLIC_EMAILJS_SERVICE_ID, NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, and NEXT_PUBLIC_EMAILJS_PUBLIC_KEY in .env.local"
+        );
+      }
+
+      if (typeof window.emailjs !== "undefined") {
         const result = await window.emailjs.send(
-          'YOUR_SERVICE_ID',
-          'YOUR_TEMPLATE_ID',
+          serviceId,
+          templateId,
           {
             from_name: formData.name,
             from_email: formData.email,
             phone: formData.phone,
             message: formData.message,
-            to_email: 'hello@tahamedia.com'
-          },
-          'YOUR_PUBLIC_KEY'
+            to_email: toEmail,
+          }
         );
 
         if (result.status === 200) {
@@ -155,12 +165,7 @@ const ContactPopup = ({ isOpen, onClose }) => {
           }, 2000);
         }
       } else {
-        console.log('Form submitted:', formData);
-        setSubmitStatus('success');
-        setFormData({ name: "", email: "", phone: "", message: "" });
-        setTimeout(() => {
-          onClose();
-        }, 2000);
+        throw new Error("EmailJS SDK not loaded. Please refresh the page.");
       }
     } catch (error) {
       console.error('Form submission error:', error);
@@ -303,8 +308,8 @@ const ContactPopup = ({ isOpen, onClose }) => {
             <div className="mt-4 text-center">
               <p className="text-xs text-slate-500 leading-relaxed">
                 <strong className="text-slate-700">Quick contact:</strong> Reach us directly at{' '}
-                <a href="mailto:hello@tahamedia.com" className="text-blue-600 font-bold hover:underline">
-                  hello@tahamedia.com
+                <a href="mailto:info@tahamedia.in" className="text-blue-600 font-bold hover:underline">
+                  info@tahamedia.in
                 </a>
               </p>
             </div>
