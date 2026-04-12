@@ -117,18 +117,18 @@ const ClientsSection = ({ setIsHovering }) => {
         <div className="absolute inset-y-0 right-0 w-24 md:w-48 bg-gradient-to-l from-[#FDFDFD] to-transparent z-20 pointer-events-none" />
         
         {/* GSAP Animated Track */}
-        <div ref={marqueeRef} className="flex gap-6 md:gap-8 w-max px-4 will-change-transform">
+        <div ref={marqueeRef} className="flex gap-3 md:gap-8 w-max px-2 md:px-4 will-change-transform">
           {duplicatedClients.map((client, index) => (
             <a
               key={`${client.name}-${index}`}
               href={client.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 group w-[200px] md:w-[280px] block"
+              className="flex-shrink-0 group w-[140px] sm:w-[180px] md:w-[280px] block"
             >
-              <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-center aspect-[4/3] h-full">
+              <div className="bg-white rounded-2xl md:rounded-3xl p-3 md:p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-center h-full min-h-[120px] md:min-h-[140px]">
                 
-                <div className="w-full h-16 md:h-20 flex items-center justify-center mb-4">
+                <div className="w-full h-12 md:h-20 flex items-center justify-center mb-2 md:mb-4">
                   {client.logo ? (
                     <img
                       src={client.logo}
@@ -136,17 +136,17 @@ const ClientsSection = ({ setIsHovering }) => {
                       className="max-w-full max-h-full object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
                     />
                   ) : (
-                    <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-100 to-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-2xl md:text-3xl font-black text-white">
+                    <div className="w-12 h-12 md:w-20 md:h-20 bg-gradient-to-br from-blue-100 to-blue-600 rounded-xl md:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-lg md:text-3xl font-black text-white">
                         {client.name.charAt(0).toUpperCase()}
                       </span>
                     </div>
                   )}
                 </div>
                 
-                <div className="h-px w-8 bg-slate-200 group-hover:bg-blue-600 group-hover:w-16 transition-all duration-500 mb-4" />
+                <div className="h-px w-6 md:w-8 bg-slate-200 group-hover:bg-blue-600 group-hover:w-8 md:group-hover:w-16 transition-all duration-500 mb-2 md:mb-4" />
                 
-                <p className="text-center text-xs md:text-sm font-bold uppercase tracking-widest text-slate-400 group-hover:text-slate-900 transition-colors duration-300">
+                <p className="text-center text-[10px] md:text-sm font-bold uppercase tracking-widest text-slate-400 group-hover:text-slate-900 transition-colors duration-300 leading-tight">
                   {client.name}
                 </p>
               </div>
