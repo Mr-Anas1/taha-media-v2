@@ -133,7 +133,7 @@ const ClientsSection = ({ setIsHovering }) => {
                     <img
                       src={client.logo}
                       alt={`${client.name} logo`}
-                      className="max-w-full max-h-full object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+                      className="max-w-full max-h-full object-contain md:filter md:grayscale md:opacity-60 md:group-hover:grayscale-0 md:group-hover:opacity-100 transition-all duration-500"
                     />
                   ) : (
                     <div className="w-12 h-12 md:w-20 md:h-20 bg-gradient-to-br from-blue-100 to-blue-600 rounded-xl md:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
