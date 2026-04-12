@@ -85,6 +85,57 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
+      <head>
+        {/* Primary Meta Tags */}
+        <title>Taha Media - Digital Marketing & Branding Solutions</title>
+        <meta name="title" content="Taha Media - Digital Marketing & Branding Solutions" />
+        <meta name="description" content="Taha Media delivers cutting-edge digital solutions with AI-powered automation, personalized branding, and results-driven marketing strategies that transform your business." />
+        <meta name="keywords" content="digital marketing, branding, AI automation, marketing strategies, business growth" />
+        <meta name="author" content="Taha Media" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.tahamedia.in/" />
+        <meta property="og:title" content="Taha Media - Digital Marketing & Branding Solutions" />
+        <meta property="og:description" content="Taha Media delivers cutting-edge digital solutions with AI-powered automation, personalized branding, and results-driven marketing strategies that transform your business." />
+        <meta property="og:image" content="/logo.jpg" />
+        <meta property="og:image:alt" content="Taha Media Logo" />
+        
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://www.tahamedia.in/" />
+        <meta property="twitter:title" content="Taha Media - Digital Marketing & Branding Solutions" />
+        <meta property="twitter:description" content="Taha Media delivers cutting-edge digital solutions with AI-powered automation, personalized branding, and results-driven marketing strategies that transform your business." />
+        <meta property="twitter:image" content="/logo.jpg" />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://www.tahamedia.in/" />
+        
+        {/* Favicon */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        
+        {/* Structured Data for Google */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Taha Media",
+              "url": "https://www.tahamedia.in/",
+              "logo": "https://www.tahamedia.in/logo.jpg",
+              "description": "Taha Media delivers cutting-edge digital solutions with AI-powered automation, personalized branding, and results-driven marketing strategies that transform your business.",
+              "sameAs": [],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer service"
+              }
+            })
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
