@@ -15,8 +15,8 @@ const ResultsSection = ({ setIsHovering }) => {
 
   const results = [
     {
-      name: "ASR Architect",
-      stat: "2.9M",
+      name: "AXS Architect",
+      stat: "3.0M",
       metric: "Views",
       sub: "+25K Followers",
       desc: "Achieved massive reach through strategic content on Meta.",
@@ -30,7 +30,7 @@ const ResultsSection = ({ setIsHovering }) => {
     },
     {
       name: "Pragaspathi Audit",
-      stat: "500K",
+      stat: "150K",
       metric: "Views",
       sub: "+15K Followers",
       desc: "Transformed brand visibility in the financial sector.",

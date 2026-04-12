@@ -175,7 +175,7 @@ const HeroWithRobot = ({ setIsHovering, onContactClick }) => {
             </h1>
 
             <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto lg:mx-0">
-              Taha Media delivers cutting-edge digital solutions with AI-powered automation, personalized branding, and results-driven marketing strategies that transform businesses.
+              We don’t believe in empty promises or short-term wins. Our focus is simple — deliver real results that help brands grow consistently. That’s why our clients trust us and continue working with us long-term.
             </p>
 
             {/* CTA */}

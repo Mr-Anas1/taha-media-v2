@@ -14,6 +14,7 @@ import Navbar from "../components/home/Navbar";
 import Portfolio from "../components/home/Portfolio";
 import AnimatedServices from "../components/home/AnimatedServices";
 import ResultsSection from "../components/home/ResultsSection";
+import ClientsSection from "../components/home/ClientsSection";
 import Squiggles from "../components/home/Squiggles";
 import WhyUs from "../components/home/WhyUs";
 import useNavbarVisibility from "../hooks/useNavbarVisibility";
@@ -97,6 +98,7 @@ export default function Home() {
         <AnimatedServices setIsHovering={setIsHovering} />
         <Portfolio setIsHovering={setIsHovering} />
                 <ResultsSection setIsHovering={setIsHovering} />
+        <ClientsSection setIsHovering={setIsHovering} />
 
         {/* <InfiniteServices /> */}
         <FinalCTA setIsHovering={setIsHovering} onContactClick={() => setIsContactOpen(true)} />

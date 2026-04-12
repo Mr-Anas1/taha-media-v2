@@ -173,18 +173,19 @@ const AboutPage = () => {
   },
   {
     year: "2024",
-    title: "Award Winner",
-    description: "Recognized as the Best Digital Marketer in Tamil Nadu for innovative and results-driven strategies.",
-    icon: Trophy,
-    color: "text-amber-600 bg-amber-50 border-amber-200"
-  },
-  {
-    year: "2025",
     title: "Design & Development",
     description: "Expanded into web design and development, building high-performance websites alongside marketing solutions.",
     icon: Rocket,
     color: "text-indigo-600 bg-indigo-50 border-indigo-200"
   },
+  {
+    year: "2025",
+    title: "Award Winner",
+    description: "Recognized as the Best Digital Marketer in Tamil Nadu for innovative and results-driven strategies.",
+    icon: Trophy,
+    color: "text-amber-600 bg-amber-50 border-amber-200"
+  },
+  
   {
     year: "2026",
     title: "AI & Automation",

@@ -11,6 +11,16 @@ const Portfolio = ({ setIsHovering }) => {
   const titleWrapperRef = useRef(null);
   const cardsRef = useRef([]);
 
+  const handleViewMore = () => {
+    const clientsSection = document.getElementById('clients');
+    if (clientsSection) {
+      clientsSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   const projects = [
     {
       img: "/images/work1.jpeg",
@@ -28,7 +38,7 @@ const Portfolio = ({ setIsHovering }) => {
     },
     {
       img: "/images/work3.jpeg",
-      title: "Hari Bakery",
+      title: "Aruvi Bakery",
       tag: "Social Media",
       rotation: "rotate-3",
       offset: "",
@@ -120,6 +130,28 @@ const Portfolio = ({ setIsHovering }) => {
               />
             </div>
           ))}
+        </div>
+
+        {/* View More Button */}
+        <div className="flex justify-center mt-16">
+          <button
+            onClick={handleViewMore}
+            onMouseEnter={() => setIsHovering?.(true)}
+            onMouseLeave={() => setIsHovering?.(false)}
+            className="group relative px-8 py-4 bg-blue-600 text-white font-bold uppercase tracking-wider text-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:bg-blue-700"
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              View More
+              <svg 
+                className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-1" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </span>
+          </button>
         </div>
         
       </div>
