@@ -10,7 +10,7 @@ const WorkSticker = ({ img, title, tag, rotation, className = "" }) => (
         <img
           src={img}
           alt={title}
-          className="w-full h-full object-cover md:grayscale md:group-hover:grayscale-0 transition-all duration-700"
+          className="w-full h-full object-cover transition-all duration-700"
         />
         <div className="absolute top-2 left-2">
           <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white">

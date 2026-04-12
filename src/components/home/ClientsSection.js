@@ -16,12 +16,16 @@ const ClientsSection = ({ setIsHovering }) => {
   // Sample client data
   const clients = [
     { name: "AXS Construction", logo: "/images/axs.jpg", link: "https://www.instagram.com/axsarchitects://axsconstruction.com" },
-    { name: "Pragaspathi Audit", logo: "", link: "https://www.instagram.com/pragaspathi_audit" },
+    { name: "Pragaspathi Audit", logo: "/images/audit.jpg", link: "https://www.instagram.com/pragaspathi_audit" },
     { name: "Aruvi Bakery", logo: "/images/aruvi.jpg", link: "https://www.instagram.com/aruvibakeryandsweets" },
     { name: "Sarah Jwellers", logo: "/images/sarah.jpg", link: "https://www.instagram.com/sarah_jewellers_" },
-    { name: "Arassan Construction", logo: "", link: "https://www.instagram.com/arasan__constructions" },
+    { name: "Arassan Construction", logo: "/images/arasan.jpg", link: "https://www.instagram.com/arasan__constructions" },
     { name: "Phd Snacks", logo: "/images/phdsnacks.jpg", link: "https://www.instagram.com/ph.dsnacks" },
-    { name: "Dr. Gayathri Nagenthran", logo: "" , link: "https://www.instagram.com/dr.gayathri_nagenthran"},
+    { name: "Dr. Gayathri Nagenthran", logo: "/images/doctor.jpg" , link: "https://www.instagram.com/dr.gayathri_nagenthran"},
+    { name: "Taxpuram", logo: "/images/taxpuram.jpg" , link: "https://www.instagram.com/taxpuram"},
+    { name: "Amudhu Karupatti Coffee", logo: "/images/amudhukarupatticoffee.jpg" , link: "https://www.instagram.com/amudhukarupatticoffee"},
+    { name: "Phd PaniPuri", logo: "/images/phdpanipuri.jpg" , link: "https://www.instagram.com/ph.dpanipuri"},
+    { name: "Prime Link Global", logo: "/images/primelink.jpg" , link: "https://www.instagram.com/primelink_global"},
   ];
 
   // Quadruple the array to ensure it fills ultra-wide screens smoothly
@@ -92,8 +96,8 @@ const ClientsSection = ({ setIsHovering }) => {
         </div>
         
         <h2 ref={titleRef} className="text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-6">
-         Some Or Our <br className="md:hidden" />
-          <span className="text-blue-600">Client's Work.</span>
+         Some Of Our <br className="md:hidden" />
+          <span className="text-blue-600">Clients Work.</span>
         </h2>
         
         <p className="client-sub text-lg md:text-xl text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">

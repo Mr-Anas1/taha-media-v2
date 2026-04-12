@@ -93,13 +93,13 @@ export default function Home() {
 
       <main className="relative z-10">
         <HeroWithRobot setIsHovering={setIsHovering} onContactClick={() => setIsContactOpen(true)} />
+        <ClientsSection setIsHovering={setIsHovering} />
+
         <AboutUs setIsHovering={setIsHovering} />
         <WhyUs setIsHovering={setIsHovering} onContactClick={() => setIsContactOpen(true)} />
         <AnimatedServices setIsHovering={setIsHovering} />
         <Portfolio setIsHovering={setIsHovering} />
-                <ResultsSection setIsHovering={setIsHovering} />
-        <ClientsSection setIsHovering={setIsHovering} />
-
+        <ResultsSection setIsHovering={setIsHovering} />
         {/* <InfiniteServices /> */}
         <FinalCTA setIsHovering={setIsHovering} onContactClick={() => setIsContactOpen(true)} />
       </main>
