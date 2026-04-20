@@ -396,7 +396,7 @@ const AboutPage = () => {
         <div
           className="bg-giant-text-co absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] font-black text-slate-200/50 tracking-tighter pointer-events-none select-none z-0 whitespace-nowrap"
         >
-          CO-FOUNDER
+          Chief Operating Officer
         </div>
 
         <div ref={coFounderRef} className="max-w-7xl mx-auto relative z-10">
