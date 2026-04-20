@@ -403,10 +403,10 @@ const AboutPage = () => {
 
           <div className="cofounder-header text-center md:text-left mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white text-blue-600 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6 shadow-sm border border-slate-100">
-              <Star size={14} /> Our Co-Founder
+              <Star size={14} /> Our COO (Chief Operating Officer)
             </div>
             <h2 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter leading-[0.9]">
-              <span className="text-blue-600">Mohamed Javith</span>
+              <span className="text-blue-600">Javith - COO</span>
             </h2>
           </div>
 
