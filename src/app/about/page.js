@@ -20,6 +20,7 @@ const AboutPage = () => {
   const pageRef = useRef(null);
   const heroTitleRef = useRef(null);
   const founderRef = useRef(null);
+  const coFounderRef = useRef(null);
   const timelineRef = useRef(null);
   const timelineLineRef = useRef(null);
 
@@ -107,6 +108,34 @@ const AboutPage = () => {
             ease: "power3.out",
             scrollTrigger: { trigger: counter, start: "top 85%" }
           });
+        });
+      }
+
+      // 2.5 CO-FOUNDER SECTION
+      if (coFounderRef.current) {
+        gsap.to(".bg-giant-text-co", {
+          xPercent: 15,
+          scrollTrigger: {
+            trigger: coFounderRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          }
+        });
+
+        gsap.from(".cofounder-header", {
+          y: 40, opacity: 0, duration: 0.8, ease: "power3.out",
+          scrollTrigger: { trigger: coFounderRef.current, start: "top 80%" }
+        });
+
+        gsap.from(".cofounder-quote", {
+          x: 40, opacity: 0, duration: 0.8, ease: "power3.out", delay: 0.2,
+          scrollTrigger: { trigger: coFounderRef.current, start: "top 75%" }
+        });
+
+        gsap.from(".cofounder-image", {
+          y: 60, opacity: 0, scale: 0.95, duration: 1, ease: "expo.out", delay: 0.1,
+          scrollTrigger: { trigger: coFounderRef.current, start: "top 75%" }
         });
       }
 
@@ -352,6 +381,57 @@ const AboutPage = () => {
                 <h3 className="text-xl font-bold text-slate-900 mb-2">Skilled Professionals</h3>
                 <p className="text-sm text-slate-500 font-medium leading-relaxed">
                   Our dedicated team of 15+ experts ensures top-quality delivery.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Co-Founder Section */}
+      <section className="py-32 px-6 bg-white border-y border-slate-100 relative overflow-hidden">
+
+        {/* Giant Parallax Background Text */}
+        <div
+          className="bg-giant-text-co absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] font-black text-slate-200/50 tracking-tighter pointer-events-none select-none z-0 whitespace-nowrap"
+        >
+          CO-FOUNDER
+        </div>
+
+        <div ref={coFounderRef} className="max-w-7xl mx-auto relative z-10">
+
+          <div className="cofounder-header text-center md:text-left mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white text-blue-600 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6 shadow-sm border border-slate-100">
+              <Star size={14} /> Our Co-Founder
+            </div>
+            <h2 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter leading-[0.9]">
+              <span className="text-blue-600">Mohamed Javith</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+
+            <div className="cofounder-image lg:col-span-6 order-1 flex justify-center">
+              <div className="relative w-full max-w-md aspect-[4/5] lg:aspect-auto lg:h-[600px] rounded-[2.5rem] bg-gradient-to-b from-slate-50 to-slate-100 border border-slate-200 overflow-hidden shadow-2xl shadow-slate-200/50 group">
+                <img
+                  src="/images/javith.jpeg"
+                  alt="Co-Founder"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-blue-900/0 group-hover:bg-blue-900/10 transition-colors duration-500" />
+              </div>
+            </div>
+
+            <div className="cofounder-quote lg:col-span-6 order-2">
+              <div className="relative">
+                <span className="absolute -top-10 -left-6 text-7xl font-black text-blue-100 font-serif opacity-70">"</span>
+                <p className="relative z-10 text-lg md:text-xl text-slate-600 font-medium leading-relaxed">
+                  Taha Media didn't start with a perfect plan — it started with a decision to begin, learn fast, and figure things out along the way.
+
+                  There were mistakes, failed ideas, and a lot of uncertainty. But we kept building, improving, and delivering for every client who trusted us.
+
+                  Today, that same mindset drives everything we do — real work, real growth, and results that actually matter.
                 </p>
               </div>
             </div>
