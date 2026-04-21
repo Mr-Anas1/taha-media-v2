@@ -396,14 +396,14 @@ const AboutPage = () => {
         <div
           className="bg-giant-text-co absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] font-black text-slate-200/50 tracking-tighter pointer-events-none select-none z-0 whitespace-nowrap"
         >
-          Chief Operating Officer
+          Co Founder
         </div>
 
         <div ref={coFounderRef} className="max-w-7xl mx-auto relative z-10">
 
           <div className="cofounder-header text-center md:text-left mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white text-blue-600 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6 shadow-sm border border-slate-100">
-              <Star size={14} /> Our COO (Chief Operating Officer)
+              <Star size={14} /> Co Founder
             </div>
             <h2 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter leading-[0.9]">
               <span className="text-blue-600">Javith - COO</span>
